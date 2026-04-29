@@ -3,19 +3,20 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { 
-  Send, 
-  Loader2, 
-  Plus, 
-  Trash2, 
-  MessageSquare, 
+import {
+  Send,
+  Loader2,
+  Plus,
+  Trash2,
+  MessageSquare,
   ChevronLeft,
   ChevronRight,
   Sparkles,
   CheckSquare,
   Brain,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Square
 } from 'lucide-react'
 import { useChatHistory, type ChatMessage } from './use-chat-history'
 import { parseExcalidrawElements, type ParsedElement } from './element-parser'
@@ -37,6 +38,7 @@ export function ChatPanel({ className, onElementsGenerated, excalidrawRef }: Cha
   const [selectedElementIds, setSelectedElementIds] = useState<string[]>([]) // 选中元素的ID列表
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
   
   const {
     sessions,
@@ -151,35 +153,44 @@ export function ChatPanel({ className, onElementsGenerated, excalidrawRef }: Cha
       deleteElements: (ids: string[]) => excalidrawRef?.current?.deleteElements(ids) || { deleted: [], notFound: ids }
     }
 
-    await streamChat(
-      userMessage,
-      (chunk) => {
-        fullText += chunk
-        updateMessage(sessionId!, assistantMessageId, fullText)
+    const abortController = new AbortController()
+    abortControllerRef.current = abortController
 
-        // 解析元素并渲染
-        const { elements, remainingBuffer } = parseExcalidrawElements(fullText, processedLength)
+    try {
+      await streamChat(
+        userMessage,
+        (chunk) => {
+          fullText += chunk
+          updateMessage(sessionId!, assistantMessageId, fullText)
+
+          // 解析元素并渲染
+          const { elements, remainingBuffer } = parseExcalidrawElements(fullText, processedLength)
+          if (elements.length > 0) {
+            onElementsGenerated?.(elements)
+            processedLength = fullText.length - remainingBuffer.length
+          }
+        },
+        (error) => {
+          console.error('Chat error:', error)
+          updateMessage(sessionId!, assistantMessageId, `抱歉，发生了错误：${error.message}`)
+        },
+        undefined,
+        selectedElements, // 传递选中的元素
+        toolExecutor, // 传递工具执行器
+        abortController.signal
+      )
+
+      // 最终解析（仅未中断时）
+      if (!abortController.signal.aborted) {
+        const { elements } = parseExcalidrawElements(fullText, processedLength)
         if (elements.length > 0) {
           onElementsGenerated?.(elements)
-          processedLength = fullText.length - remainingBuffer.length
         }
-      },
-      (error) => {
-        console.error('Chat error:', error)
-        updateMessage(sessionId!, assistantMessageId, `抱歉，发生了错误：${error.message}`)
-      },
-      undefined,
-      selectedElements, // 传递选中的元素
-      toolExecutor // 传递工具执行器
-    )
-
-    // 最终解析
-    const { elements } = parseExcalidrawElements(fullText, processedLength)
-    if (elements.length > 0) {
-      onElementsGenerated?.(elements)
+      }
+    } finally {
+      abortControllerRef.current = null
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   // 处理按键（输入法激活时不发送）
@@ -319,6 +330,15 @@ export function ChatPanel({ className, onElementsGenerated, excalidrawRef }: Cha
             <div className="flex items-center gap-2 text-foreground/50">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span className="text-sm">AI 正在思考...</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 px-2 text-xs text-foreground/50 hover:text-foreground"
+                onClick={() => abortControllerRef.current?.abort()}
+              >
+                <Square className="w-3 h-3 fill-current" />
+                停止
+              </Button>
             </div>
           )}
           
@@ -370,12 +390,18 @@ export function ChatPanel({ className, onElementsGenerated, excalidrawRef }: Cha
             />
             <Button
               size="icon"
-              onClick={handleSend}
-              disabled={!input.trim() || isLoading}
+              onClick={() => {
+                if (isLoading) {
+                  abortControllerRef.current?.abort()
+                } else {
+                  handleSend()
+                }
+              }}
+              disabled={!isLoading && !input.trim()}
               className="shrink-0 w-9 h-9"
             >
               {isLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Square className="w-4 h-4 fill-current" />
               ) : (
                 <Send className="w-4 h-4" />
               )}

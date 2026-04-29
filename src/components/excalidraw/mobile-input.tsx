@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
-import { Send, Loader2, Trash2 } from 'lucide-react'
+import { Send, Loader2, Trash2, Square } from 'lucide-react'
 import { useChatHistory } from './use-chat-history'
 import { parseExcalidrawElements, type ParsedElement } from './element-parser'
 import { streamChat, isConfigValid, getAIConfig } from '@/lib/ai'
@@ -24,6 +24,7 @@ export function MobileInput({
   const [isLoading, setIsLoading] = useState(false)
   const [isComposing, setIsComposing] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
   
   const {
     currentSessionId,
@@ -68,40 +69,52 @@ export function MobileInput({
     let processedLength = 0
     let hasGeneratedElements = false
 
-    await streamChat(
-      userMessage,
-      (chunk) => {
-        fullText += chunk
-        updateMessage(sessionId!, assistantMessageId, fullText)
+    const abortController = new AbortController()
+    abortControllerRef.current = abortController
 
-        // 解析元素并渲染
-        const { elements, remainingBuffer } = parseExcalidrawElements(fullText, processedLength)
+    try {
+      await streamChat(
+        userMessage,
+        (chunk) => {
+          fullText += chunk
+          updateMessage(sessionId!, assistantMessageId, fullText)
+
+          // 解析元素并渲染
+          const { elements, remainingBuffer } = parseExcalidrawElements(fullText, processedLength)
+          if (elements.length > 0) {
+            onElementsGenerated?.(elements)
+            processedLength = fullText.length - remainingBuffer.length
+            hasGeneratedElements = true
+          }
+        },
+        (error) => {
+          console.error('Chat error:', error)
+          updateMessage(sessionId!, assistantMessageId, `抱歉，发生了错误：${error.message}`)
+          showToast?.('生成失败，请重试', 2000)
+        },
+        undefined,
+        undefined,
+        undefined,
+        abortController.signal
+      )
+
+      // 最终解析（仅未中断时）
+      if (!abortController.signal.aborted) {
+        const { elements } = parseExcalidrawElements(fullText, processedLength)
         if (elements.length > 0) {
           onElementsGenerated?.(elements)
-          processedLength = fullText.length - remainingBuffer.length
           hasGeneratedElements = true
         }
-      },
-      (error) => {
-        console.error('Chat error:', error)
-        updateMessage(sessionId!, assistantMessageId, `抱歉，发生了错误：${error.message}`)
-        showToast?.('生成失败，请重试', 2000)
+
+        // 显示完成提示
+        if (hasGeneratedElements) {
+          showToast?.('✨ 图形已生成到画布', 2000)
+        }
       }
-    )
-
-    // 最终解析
-    const { elements } = parseExcalidrawElements(fullText, processedLength)
-    if (elements.length > 0) {
-      onElementsGenerated?.(elements)
-      hasGeneratedElements = true
+    } finally {
+      abortControllerRef.current = null
+      updateLoading(false)
     }
-
-    // 显示完成提示
-    if (hasGeneratedElements) {
-      showToast?.('✨ 图形已生成到画布', 2000)
-    }
-
-    updateLoading(false)
   }
 
   // 处理按键
@@ -140,15 +153,21 @@ export function MobileInput({
           disabled={isLoading}
         />
 
-        {/* 发送按钮 */}
+        {/* 发送/停止按钮 */}
         <Button
           size="icon"
-          onClick={handleSend}
-          disabled={!input.trim() || isLoading}
+          onClick={() => {
+            if (isLoading) {
+              abortControllerRef.current?.abort()
+            } else {
+              handleSend()
+            }
+          }}
+          disabled={!isLoading && !input.trim()}
           className="shrink-0 w-9 h-9"
         >
           {isLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Square className="w-4 h-4 fill-current" />
           ) : (
             <Send className="w-4 h-4" />
           )}

@@ -179,7 +179,8 @@ export async function streamChat(
   onError?: (error: Error) => void,
   config?: AIConfig,
   selectedElements?: ElementSummary[],
-  toolExecutor?: ToolExecutor
+  toolExecutor?: ToolExecutor,
+  signal?: AbortSignal
 ): Promise<void> {
   const finalConfig = config || getAIConfig()
 
@@ -197,7 +198,7 @@ export async function streamChat(
   ]
 
   // 递归处理，支持多轮工具调用
-  await processChat(messages, finalConfig, onChunk, onError, toolExecutor)
+  await processChat(messages, finalConfig, onChunk, onError, toolExecutor, 3, signal)
 }
 
 /**
@@ -209,7 +210,8 @@ async function processChat(
   onChunk: (content: string) => void,
   onError?: (error: Error) => void,
   toolExecutor?: ToolExecutor,
-  maxToolCalls = 3  // 最大工具调用次数，防止无限循环
+  maxToolCalls = 3,  // 最大工具调用次数，防止无限循环
+  signal?: AbortSignal
 ): Promise<void> {
   try {
     const requestBody: Record<string, unknown> = {
@@ -231,6 +233,7 @@ async function processChat(
         'Authorization': `Bearer ${config.apiKey}`,
       },
       body: JSON.stringify(requestBody),
+      signal,
     })
 
     if (!response.ok) {
@@ -347,9 +350,13 @@ async function processChat(
       onChunk('\n\n[正在分析画布内容...]\n\n')
 
       // 递归调用继续对话
-      await processChat(messages, config, onChunk, onError, toolExecutor, maxToolCalls - 1)
+      await processChat(messages, config, onChunk, onError, toolExecutor, maxToolCalls - 1, signal)
     }
   } catch (error) {
+    const isAbort = error instanceof DOMException
+      ? error.name === 'AbortError'
+      : error instanceof Error && (error.name === 'AbortError' || error.message?.includes('aborted'))
+    if (isAbort) return
     onError?.(error instanceof Error ? error : new Error(String(error)))
   }
 }
