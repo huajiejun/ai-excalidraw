@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react'
+import { useRef, useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Excalidraw } from '@excalidraw/excalidraw'
 import { getDefaultElementProps, getTypeSpecificProps, type ParsedElement } from './element-parser'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -6,6 +6,53 @@ type ExcalidrawElement = any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExcalidrawImperativeAPI = any
 import '@excalidraw/excalidraw/index.css'
+
+/**
+ * 从 URL hash 解析 addLibrary 参数
+ * 格式：#addLibrary=<encodedURL>&token=<token>
+ */
+function parseAddLibraryFromHash(): { libraryUrl: string; token: string } | null {
+  const hash = window.location.hash.slice(1) // 去掉 #
+  if (!hash) return null
+
+  const params = new URLSearchParams(hash)
+  const libraryUrl = params.get('addLibrary')
+  const token = params.get('token') || ''
+
+  if (!libraryUrl) return null
+
+  // 验证 URL 合法性（只允许 https）
+  try {
+    const url = new URL(libraryUrl)
+    if (url.protocol !== 'https:') return null
+  } catch {
+    return null
+  }
+
+  return { libraryUrl, token }
+}
+
+/**
+ * 从 .excalidrawlib URL 获取 library items
+ * excalidrawlib 格式：{ type: "excalidrawlib", version: number, library: Element[][] }
+ * updateLibrary 需要的格式：LibraryItem[]，每个 item 含 { status, id, created, elements }
+ */
+async function fetchLibraryItems(url: string): Promise<{ status: string; id: string; created: number; elements: ExcalidrawElement[] }[]> {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Failed to fetch library: ${res.status}`)
+
+  const data = await res.json()
+  if (data.type !== 'excalidrawlib' || !Array.isArray(data.library)) {
+    throw new Error('Invalid excalidrawlib format')
+  }
+
+  return data.library.map((elements: ExcalidrawElement[], index: number) => ({
+    status: 'unpublished',
+    id: crypto.randomUUID ? crypto.randomUUID() : `lib-${Date.now()}-${index}`,
+    created: Date.now(),
+    elements,
+  }))
+}
 
 export interface ElementSummary {
   id: string
@@ -167,6 +214,37 @@ export const ExcalidrawWrapper = forwardRef<ExcalidrawWrapperRef, ExcalidrawWrap
     const currentUseIndependentCanvasRef = useRef<boolean>(false)
     // 使用懒初始化确保首次渲染时就有数据（初始加载共享画布）
     const [initialData] = useState(() => loadCanvasData(initialSessionId, false))
+
+    // 处理 URL hash 中的 addLibrary 参数
+    useEffect(() => {
+      const libraryParams = parseAddLibraryFromHash()
+      if (!libraryParams) return
+
+      // 等待 API 就绪后才能调用 updateLibrary
+      const checkAndLoad = () => {
+        const api = excalidrawAPIRef.current
+        if (!api) {
+          // API 还没准备好，稍后再试
+          setTimeout(checkAndLoad, 200)
+          return
+        }
+
+        api.updateLibrary({
+          libraryItems: fetchLibraryItems(libraryParams.libraryUrl),
+          merge: true,
+          prompt: true,           // 显示确认对话框
+          openLibraryMenu: true,  // 完成后打开 library 面板
+          defaultStatus: 'unpublished',
+        }).then(() => {
+          // 清除 hash，避免刷新时重复触发
+          history.replaceState(null, '', window.location.pathname + window.location.search)
+        }).catch((err: unknown) => {
+          console.warn('Failed to load library from URL:', err)
+        })
+      }
+
+      checkAndLoad()
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     // 暴露方法给父组件
     useImperativeHandle(ref, () => ({
