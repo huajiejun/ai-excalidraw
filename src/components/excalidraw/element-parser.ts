@@ -189,21 +189,4 @@ export function getTypeSpecificProps(type: string, element: ParsedElement): Reco
   }
 }
 
-/**
- * 检查是否有未完成的 JSON 对象
- * 用于判断是否还在等待更多内容
- */
-export function hasIncompleteBlock(text: string): boolean {
-  // 检查是否有未闭合的 { 
-  const lastOpenBrace = text.lastIndexOf('{')
-  const lastCloseBrace = text.lastIndexOf('}')
-  return lastOpenBrace > lastCloseBrace
-}
-
-/**
- * 生成唯一元素 ID
- */
-export function generateElementId(): string {
-  return `el-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-}
 

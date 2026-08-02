@@ -1,5 +1,7 @@
 import { EXCALIDRAW_SYSTEM_PROMPT } from './prompt'
+import { buildHistoryForModel, type HistoryTurn } from './message-content'
 import type { ElementSummary } from '@/components/excalidraw/wrapper'
+import type { ParsedElement } from '@/components/excalidraw/element-parser'
 
 export interface AIConfig {
   apiKey: string
@@ -23,12 +25,20 @@ export interface ToolCall {
   }
 }
 
+export interface CanvasBounds {
+  minX: number
+  minY: number
+  maxX: number
+  maxY: number
+}
+
 /**
  * 工具执行器接口
  */
 export interface ToolExecutor {
   getCanvasElements: () => ElementSummary[]
-  deleteElements: (ids: string[]) => { deleted: string[], notFound: string[] }
+  deleteElements: (ids: string[]) => { deleted: string[]; notFound: string[] }
+  updateElements: (elements: ParsedElement[]) => { updated: string[]; notFound: string[] }
 }
 
 /**
@@ -43,9 +53,9 @@ const TOOLS = [
       parameters: {
         type: 'object',
         properties: {},
-        required: []
-      }
-    }
+        required: [] as string[],
+      },
+    },
   },
   {
     type: 'function' as const,
@@ -58,13 +68,38 @@ const TOOLS = [
           ids: {
             type: 'array',
             items: { type: 'string' },
-            description: '要删除的元素 id 数组'
-          }
+            description: '要删除的元素 id 数组',
+          },
         },
-        required: ['ids']
-      }
-    }
-  }
+        required: ['ids'],
+      },
+    },
+  },
+  {
+    type: 'function' as const,
+    function: {
+      name: 'update_elements',
+      description: '按 id 批量更新已有元素属性（如位置、颜色、文字）。只需传入 id 与要修改的字段。',
+      parameters: {
+        type: 'object',
+        properties: {
+          elements: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+              },
+              required: ['id'],
+              additionalProperties: true,
+            },
+            description: '要更新的元素列表，每项至少包含 id',
+          },
+        },
+        required: ['elements'],
+      },
+    },
+  },
 ]
 
 const STORAGE_KEY = 'ai-excalidraw-config'
@@ -73,19 +108,16 @@ const STORAGE_KEY = 'ai-excalidraw-config'
  * 获取 AI 配置（优先环境变量，其次 localStorage）
  */
 export function getAIConfig(): AIConfig {
-  // 优先从环境变量读取
   const envConfig: AIConfig = {
     apiKey: import.meta.env.VITE_AI_API_KEY || '',
     baseURL: import.meta.env.VITE_AI_BASE_URL || '',
     model: import.meta.env.VITE_AI_MODEL || 'gpt-4o',
   }
 
-  // 如果环境变量已配置，直接返回
   if (envConfig.apiKey && envConfig.baseURL) {
     return envConfig
   }
 
-  // 否则从 localStorage 读取
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) {
@@ -121,19 +153,33 @@ export function isConfigValid(config: AIConfig): boolean {
   return !!(config.apiKey && config.baseURL && config.model)
 }
 
+function formatBoundsHint(bounds?: CanvasBounds | null): string {
+  if (!bounds) {
+    return '画布当前为空。新内容可从约 (x=200, y=120) 开始布局，整体居中偏上。'
+  }
+  const gap = 80
+  return `画布已有内容包围盒：minX=${Math.round(bounds.minX)}, minY=${Math.round(bounds.minY)}, maxX=${Math.round(bounds.maxX)}, maxY=${Math.round(bounds.maxY)}。新增内容请放在现有内容右侧（x≈${Math.round(bounds.maxX + gap)}）或下方（y≈${Math.round(bounds.maxY + gap)}），避免重叠。`
+}
+
 /**
  * 构建包含选中元素信息的用户消息
  */
-function buildUserMessage(userMessage: string, selectedElements?: ElementSummary[]): string {
+function buildUserMessage(
+  userMessage: string,
+  selectedElements?: ElementSummary[],
+  canvasBounds?: CanvasBounds | null
+): string {
+  const boundsHint = formatBoundsHint(canvasBounds)
+
   if (!selectedElements || selectedElements.length === 0) {
-    return userMessage
+    return `${userMessage}
+
+布局提示：${boundsHint}`
   }
 
-  // 分离主元素和绑定元素
-  const mainElements = selectedElements.filter(el => !el.containerId)
-  const boundElements = selectedElements.filter(el => el.containerId)
+  const mainElements = selectedElements.filter((el) => !el.containerId)
+  const boundElements = selectedElements.filter((el) => el.containerId)
 
-  // 构建元素描述
   const formatElement = (el: ElementSummary, indent = '') => {
     const parts = [`id: ${el.id}`, `type: ${el.type}`]
     if (el.text) parts.push(`text: "${el.text}"`)
@@ -146,19 +192,18 @@ function buildUserMessage(userMessage: string, selectedElements?: ElementSummary
     return `${indent}- ${parts.join(', ')}`
   }
 
-  // 构建上下文
   let elementsContext = ''
   for (const el of mainElements) {
     elementsContext += formatElement(el) + '\n'
-    // 添加该元素的绑定元素（如形状内的文字）
-    const children = boundElements.filter(b => b.containerId === el.id)
+    const children = boundElements.filter((b) => b.containerId === el.id)
     for (const child of children) {
       elementsContext += formatElement(child, '  ') + ' (绑定在 ' + el.id + ' 内的文字)\n'
     }
   }
-  
-  // 添加没有父元素的绑定元素（理论上不应该发生）
-  const orphanBound = boundElements.filter(b => !mainElements.find(m => m.id === b.containerId))
+
+  const orphanBound = boundElements.filter(
+    (b) => !mainElements.find((m) => m.id === b.containerId)
+  )
   for (const el of orphanBound) {
     elementsContext += formatElement(el) + '\n'
   }
@@ -167,12 +212,28 @@ function buildUserMessage(userMessage: string, selectedElements?: ElementSummary
 ${elementsContext}
 用户的请求：${userMessage}
 
+布局提示：${boundsHint}
+
 注意：修改现有元素时，请保持相同的 id，这样会更新而不是新建元素。`
 }
 
+export interface StreamChatOptions {
+  userMessage: string
+  onChunk: (content: string) => void
+  onError?: (error: Error) => void
+  config?: AIConfig
+  selectedElements?: ElementSummary[]
+  toolExecutor?: ToolExecutor
+  signal?: AbortSignal
+  history?: HistoryTurn[]
+  canvasBounds?: CanvasBounds | null
+}
+
 /**
- * 流式调用 AI API（支持工具调用）
+ * 流式调用 AI API（支持工具调用与多轮历史）
  */
+export async function streamChat(options: StreamChatOptions): Promise<void>
+/** @deprecated 使用 options 对象形式 */
 export async function streamChat(
   userMessage: string,
   onChunk: (content: string) => void,
@@ -180,25 +241,66 @@ export async function streamChat(
   config?: AIConfig,
   selectedElements?: ElementSummary[],
   toolExecutor?: ToolExecutor,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  history?: HistoryTurn[],
+  canvasBounds?: CanvasBounds | null
+): Promise<void>
+export async function streamChat(
+  arg0: string | StreamChatOptions,
+  onChunk?: (content: string) => void,
+  onError?: (error: Error) => void,
+  config?: AIConfig,
+  selectedElements?: ElementSummary[],
+  toolExecutor?: ToolExecutor,
+  signal?: AbortSignal,
+  history?: HistoryTurn[],
+  canvasBounds?: CanvasBounds | null
 ): Promise<void> {
-  const finalConfig = config || getAIConfig()
+  const opts: StreamChatOptions =
+    typeof arg0 === 'string'
+      ? {
+          userMessage: arg0,
+          onChunk: onChunk!,
+          onError,
+          config,
+          selectedElements,
+          toolExecutor,
+          signal,
+          history,
+          canvasBounds,
+        }
+      : arg0
+
+  const finalConfig = opts.config || getAIConfig()
 
   if (!isConfigValid(finalConfig)) {
-    onError?.(new Error('请先配置 AI API'))
+    opts.onError?.(new Error('请先配置 AI API'))
     return
   }
 
-  // 构建带有选中元素上下文的用户消息
-  const contextualMessage = buildUserMessage(userMessage, selectedElements)
+  const contextualMessage = buildUserMessage(
+    opts.userMessage,
+    opts.selectedElements,
+    opts.canvasBounds
+  )
+
+  const historyMessages = buildHistoryForModel(opts.history ?? [])
 
   const messages: ChatMessage[] = [
     { role: 'system', content: EXCALIDRAW_SYSTEM_PROMPT },
+    ...historyMessages.map((m) => ({ role: m.role, content: m.content })),
     { role: 'user', content: contextualMessage },
   ]
 
-  // 递归处理，支持多轮工具调用
-  await processChat(messages, finalConfig, onChunk, onError, toolExecutor, 3, signal)
+  await processChat(
+    messages,
+    finalConfig,
+    opts.onChunk,
+    opts.onError,
+    opts.toolExecutor,
+    3,
+    opts.signal
+  )
 }
 
 /**
@@ -210,7 +312,7 @@ async function processChat(
   onChunk: (content: string) => void,
   onError?: (error: Error) => void,
   toolExecutor?: ToolExecutor,
-  maxToolCalls = 3,  // 最大工具调用次数，防止无限循环
+  maxToolCalls = 3,
   signal?: AbortSignal
 ): Promise<void> {
   try {
@@ -220,7 +322,6 @@ async function processChat(
       stream: true,
     }
 
-    // 如果有工具执行器，添加工具定义
     if (toolExecutor) {
       requestBody.tools = TOOLS
       requestBody.tool_choice = 'auto'
@@ -230,7 +331,7 @@ async function processChat(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.apiKey}`,
+        Authorization: `Bearer ${config.apiKey}`,
       },
       body: JSON.stringify(requestBody),
       signal,
@@ -257,35 +358,30 @@ async function processChat(
 
       buffer += decoder.decode(value, { stream: true })
 
-      // 按行处理 SSE 格式
       const lines = buffer.split('\n')
-      buffer = lines.pop() || '' // 保留最后不完整的行
+      buffer = lines.pop() || ''
 
       for (const line of lines) {
         const trimmed = line.trim()
         if (!trimmed || !trimmed.startsWith('data: ')) continue
-        
+
         const data = trimmed.slice(6)
         if (data === '[DONE]') continue
 
         try {
           const json = JSON.parse(data)
           const delta = json.choices?.[0]?.delta
-          
-          // 处理思考内容（支持 reasoning_content / thinking 字段）
+
           const thinking = delta?.reasoning_content || delta?.thinking
           if (thinking) {
-            // 使用特殊标记包裹思考内容
             onChunk(`<think>${thinking}</think>`)
           }
-          
-          // 处理文本内容
+
           if (delta?.content) {
             fullContent += delta.content
             onChunk(delta.content)
           }
-          
-          // 处理工具调用
+
           if (delta?.tool_calls) {
             for (const tc of delta.tool_calls) {
               const index = tc.index ?? 0
@@ -293,13 +389,15 @@ async function processChat(
                 toolCalls.set(index, {
                   id: tc.id || '',
                   type: 'function',
-                  function: { name: '', arguments: '' }
+                  function: { name: '', arguments: '' },
                 })
               }
               const existing = toolCalls.get(index)!
               if (tc.id) existing.id = tc.id
               if (tc.function?.name) existing.function.name = tc.function.name
-              if (tc.function?.arguments) existing.function.arguments += tc.function.arguments
+              if (tc.function?.arguments) {
+                existing.function.arguments += tc.function.arguments
+              }
             }
           }
         } catch {
@@ -308,7 +406,6 @@ async function processChat(
       }
     }
 
-    // 处理最后的 buffer
     if (buffer.trim()) {
       const trimmed = buffer.trim()
       if (trimmed.startsWith('data: ') && trimmed !== 'data: [DONE]') {
@@ -325,37 +422,42 @@ async function processChat(
       }
     }
 
-    // 如果有工具调用，执行工具并继续对话
     if (toolCalls.size > 0 && toolExecutor && maxToolCalls > 0) {
       const toolCallsArray = Array.from(toolCalls.values())
-      
-      // 添加助手消息（包含工具调用）
+
       messages.push({
         role: 'assistant',
         content: fullContent,
-        tool_calls: toolCallsArray
+        tool_calls: toolCallsArray,
       })
 
-      // 执行每个工具调用并添加结果
       for (const tc of toolCallsArray) {
         const result = executeToolCall(tc, toolExecutor)
         messages.push({
           role: 'tool',
           content: result,
-          tool_call_id: tc.id
+          tool_call_id: tc.id,
         })
       }
 
-      // 提示用户正在处理
       onChunk('\n\n[正在分析画布内容...]\n\n')
 
-      // 递归调用继续对话
-      await processChat(messages, config, onChunk, onError, toolExecutor, maxToolCalls - 1, signal)
+      await processChat(
+        messages,
+        config,
+        onChunk,
+        onError,
+        toolExecutor,
+        maxToolCalls - 1,
+        signal
+      )
     }
   } catch (error) {
-    const isAbort = error instanceof DOMException
-      ? error.name === 'AbortError'
-      : error instanceof Error && (error.name === 'AbortError' || error.message?.includes('aborted'))
+    const isAbort =
+      error instanceof DOMException
+        ? error.name === 'AbortError'
+        : error instanceof Error &&
+          (error.name === 'AbortError' || error.message?.includes('aborted'))
     if (isAbort) return
     onError?.(error instanceof Error ? error : new Error(String(error)))
   }
@@ -366,7 +468,7 @@ async function processChat(
  */
 function executeToolCall(toolCall: ToolCall, executor: ToolExecutor): string {
   const { name, arguments: args } = toolCall.function
-  
+
   switch (name) {
     case 'get_canvas_elements': {
       const elements = executor.getCanvasElements()
@@ -375,7 +477,7 @@ function executeToolCall(toolCall: ToolCall, executor: ToolExecutor): string {
       }
       return JSON.stringify({
         message: `画布上共有 ${elements.length} 个元素`,
-        elements: elements.map(el => ({
+        elements: elements.map((el) => ({
           id: el.id,
           type: el.type,
           text: el.text,
@@ -383,8 +485,8 @@ function executeToolCall(toolCall: ToolCall, executor: ToolExecutor): string {
           size: { width: el.width, height: el.height },
           strokeColor: el.strokeColor,
           backgroundColor: el.backgroundColor,
-          containerId: el.containerId
-        }))
+          containerId: el.containerId,
+        })),
       })
     }
     case 'delete_elements': {
@@ -396,15 +498,32 @@ function executeToolCall(toolCall: ToolCall, executor: ToolExecutor): string {
         }
         const result = executor.deleteElements(ids)
         if (result.deleted.length === 0) {
-          return JSON.stringify({ 
+          return JSON.stringify({
             message: '没有找到可删除的元素',
-            notFound: result.notFound 
+            notFound: result.notFound,
           })
         }
         return JSON.stringify({
           message: `成功删除 ${result.deleted.length} 个元素`,
           deleted: result.deleted,
-          notFound: result.notFound.length > 0 ? result.notFound : undefined
+          notFound: result.notFound.length > 0 ? result.notFound : undefined,
+        })
+      } catch (e) {
+        return JSON.stringify({ error: `参数解析失败: ${e}` })
+      }
+    }
+    case 'update_elements': {
+      try {
+        const parsed = JSON.parse(args)
+        const elements = parsed.elements as ParsedElement[]
+        if (!Array.isArray(elements) || elements.length === 0) {
+          return JSON.stringify({ error: '请提供要更新的元素数组' })
+        }
+        const result = executor.updateElements(elements)
+        return JSON.stringify({
+          message: `成功更新 ${result.updated.length} 个元素`,
+          updated: result.updated,
+          notFound: result.notFound.length > 0 ? result.notFound : undefined,
         })
       } catch (e) {
         return JSON.stringify({ error: `参数解析失败: ${e}` })

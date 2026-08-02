@@ -1,10 +1,25 @@
-import { useRef, useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Excalidraw } from '@excalidraw/excalidraw'
-import { getDefaultElementProps, getTypeSpecificProps, type ParsedElement } from './element-parser'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ExcalidrawElement = any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ExcalidrawImperativeAPI = any
+import {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react'
+import { Excalidraw, getCommonBounds, THEME } from '@excalidraw/excalidraw'
+import type {
+  ExcalidrawImperativeAPI,
+  AppState,
+  LibraryItem,
+} from '@excalidraw/excalidraw/types'
+import type { ExcalidrawElement } from '@excalidraw/excalidraw/element/types'
+import {
+  getDefaultElementProps,
+  getTypeSpecificProps,
+  type ParsedElement,
+} from './element-parser'
+import { createDebouncedWriter, removeStorage, readStorage } from '@/lib/storage'
+import { excalidrawLangCode, getLocale } from '@/lib/i18n'
 import '@excalidraw/excalidraw/index.css'
 
 /**
@@ -12,7 +27,7 @@ import '@excalidraw/excalidraw/index.css'
  * 格式：#addLibrary=<encodedURL>&token=<token>
  */
 function parseAddLibraryFromHash(): { libraryUrl: string; token: string } | null {
-  const hash = window.location.hash.slice(1) // 去掉 #
+  const hash = window.location.hash.slice(1)
   if (!hash) return null
 
   const params = new URLSearchParams(hash)
@@ -21,7 +36,6 @@ function parseAddLibraryFromHash(): { libraryUrl: string; token: string } | null
 
   if (!libraryUrl) return null
 
-  // 验证 URL 合法性（只允许 https）
   try {
     const url = new URL(libraryUrl)
     if (url.protocol !== 'https:') return null
@@ -32,12 +46,7 @@ function parseAddLibraryFromHash(): { libraryUrl: string; token: string } | null
   return { libraryUrl, token }
 }
 
-/**
- * 从 .excalidrawlib URL 获取 library items
- * excalidrawlib 格式：{ type: "excalidrawlib", version: number, library: Element[][] }
- * updateLibrary 需要的格式：LibraryItem[]，每个 item 含 { status, id, created, elements }
- */
-async function fetchLibraryItems(url: string): Promise<{ status: string; id: string; created: number; elements: ExcalidrawElement[] }[]> {
+async function fetchLibraryItems(url: string): Promise<LibraryItem[]> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`Failed to fetch library: ${res.status}`)
 
@@ -47,7 +56,7 @@ async function fetchLibraryItems(url: string): Promise<{ status: string; id: str
   }
 
   return data.library.map((elements: ExcalidrawElement[], index: number) => ({
-    status: 'unpublished',
+    status: 'unpublished' as const,
     id: crypto.randomUUID ? crypto.randomUUID() : `lib-${Date.now()}-${index}`,
     created: Date.now(),
     elements,
@@ -64,132 +73,89 @@ export interface ElementSummary {
   height: number
   strokeColor?: string
   backgroundColor?: string
-  containerId?: string  // 如果是绑定在形状内的文字，这里是容器形状的 id
+  containerId?: string
+}
+
+export interface CanvasBounds {
+  minX: number
+  minY: number
+  maxX: number
+  maxY: number
 }
 
 export interface ExcalidrawWrapperRef {
   addElements: (elements: ParsedElement[]) => void
   clearCanvas: () => void
   getElements: () => readonly ExcalidrawElement[]
-  getSelectedElements: () => ExcalidrawElement[]
   getCanvasState: () => ElementSummary[]
   getSelectedElementsSummary: () => ElementSummary[]
-  /**
-   * 删除指定 id 的元素
-   * @param ids 要删除的元素 id 数组
-   * @returns 删除结果：deleted 为成功删除的 id，notFound 为未找到的 id
-   */
-  deleteElements: (ids: string[]) => { deleted: string[], notFound: string[] }
-  /** 
-   * 切换到指定会话的画布（会自动保存当前画布）
-   * @param sessionId 目标会话 ID
-   * @param useIndependentCanvas 是否使用独立画布（新会话为 true，老会话为 false）
-   */
+  getCanvasBounds: () => CanvasBounds | null
+  updateElements: (
+    elements: ParsedElement[]
+  ) => { updated: string[]; notFound: string[] }
+  deleteElements: (ids: string[]) => { deleted: string[]; notFound: string[] }
+  scrollToElements: (ids?: string[]) => void
   switchToSession: (sessionId: string | null, useIndependentCanvas?: boolean) => void
-  /** 获取当前会话 ID */
   getCurrentSessionId: () => string | null
-  /** 检查 Excalidraw API 是否已准备好 */
   isReady: () => boolean
 }
 
 interface ExcalidrawWrapperProps {
   className?: string
   onElementsChange?: (elements: readonly ExcalidrawElement[]) => void
-  onSelectionChange?: (selectedElements: ExcalidrawElement[]) => void
-  zenModeEnabled?: boolean // 禅模式：隐藏大部分 UI 元素
-  /** 初始会话 ID */
+  onSelectionChange?: (selectedElements: ElementSummary[]) => void
+  onThemeChange?: (theme: 'light' | 'dark') => void
+  zenModeEnabled?: boolean
   initialSessionId?: string | null
+  langCode?: string
 }
 
 const STORAGE_KEY_BASE = 'excalidraw-canvas-data'
-// 兼容性：共享画布 key（用于老会话）
 const SHARED_STORAGE_KEY = 'excalidraw-canvas-data'
 
-/**
- * 获取会话对应的存储 key
- * @param sessionId 会话 ID
- * @param useIndependentCanvas 是否使用独立画布
- */
 function getStorageKey(sessionId: string | null, useIndependentCanvas: boolean): string {
-  // 老会话（useIndependentCanvas 为 false）或无会话时，使用共享画布
   if (!useIndependentCanvas || !sessionId) return SHARED_STORAGE_KEY
-  // 新会话使用独立画布
   return `${STORAGE_KEY_BASE}-${sessionId}`
 }
 
-/**
- * 从 localStorage 加载画布数据
- * @param sessionId 会话 ID
- * @param useIndependentCanvas 是否使用独立画布
- * @returns 数据对象，或 null 表示没有该会话的数据
- */
-function loadCanvasData(sessionId: string | null, useIndependentCanvas: boolean): { elements: ExcalidrawElement[] } | null {
+function loadCanvasData(
+  sessionId: string | null,
+  useIndependentCanvas: boolean
+): { elements: ExcalidrawElement[] } | null {
   if (typeof window === 'undefined') return null
-  
+
   const storageKey = getStorageKey(sessionId, useIndependentCanvas)
-  
-  try {
-    const data = localStorage.getItem(storageKey)
-    
-    // 没有数据，返回 null（让调用方决定如何处理）
-    if (!data) return null
-    
-    const parsed = JSON.parse(data)
-    // 确保 elements 是数组且每个元素都有效
-    if (parsed && Array.isArray(parsed.elements)) {
-      // 过滤掉无效元素，确保每个元素都有必需字段
-      const validElements = parsed.elements.filter((el: ExcalidrawElement) => 
-        el && el.id && el.type && typeof el.x === 'number' && typeof el.y === 'number'
-      )
-      return { elements: validElements }
-    }
-    // 数据无效，清除它
-    localStorage.removeItem(storageKey)
-    return null
-  } catch {
-    // 解析失败，清除损坏的数据
-    localStorage.removeItem(getStorageKey(sessionId, useIndependentCanvas))
+  const parsed = readStorage<{ elements?: ExcalidrawElement[] } | null>(storageKey, null)
+
+  if (!parsed || !Array.isArray(parsed.elements)) {
+    if (parsed) removeStorage(storageKey)
     return null
   }
+
+  const validElements = parsed.elements.filter(
+    (el) => el && el.id && el.type && typeof el.x === 'number' && typeof el.y === 'number'
+  )
+  return { elements: validElements }
 }
 
-/**
- * 保存画布数据到 localStorage
- * @param elements 画布元素
- * @param sessionId 会话 ID
- * @param useIndependentCanvas 是否使用独立画布
- */
-function saveCanvasData(elements: readonly ExcalidrawElement[], sessionId: string | null, useIndependentCanvas: boolean): void {
-  if (typeof window === 'undefined') return
-  const storageKey = getStorageKey(sessionId, useIndependentCanvas)
-  try {
-    localStorage.setItem(storageKey, JSON.stringify({ elements }))
-  } catch {
-    console.warn('Failed to save canvas data')
-  }
-}
+function summarizeElement(
+  el: ExcalidrawElement,
+  allElements?: readonly ExcalidrawElement[]
+): ElementSummary {
+  let text = 'text' in el ? (el.text as string | undefined) : undefined
 
-/**
- * 将元素转换为摘要格式
- * @param el 元素
- * @param allElements 所有元素（用于查找关联的文本元素）
- */
-function summarizeElement(el: ExcalidrawElement, allElements?: readonly ExcalidrawElement[]): ElementSummary {
-  let text = el.text
-  
-  // 如果是形状元素且有绑定的文本元素，获取绑定文本的内容
   if (!text && el.boundElements && Array.isArray(el.boundElements) && allElements) {
     const boundTextElement = el.boundElements.find(
       (bound: { type: string; id: string }) => bound.type === 'text'
     )
     if (boundTextElement) {
-      const textElement = allElements.find(e => e.id === boundTextElement.id)
-      if (textElement && textElement.text) {
+      const textElement = allElements.find((e) => e.id === boundTextElement.id)
+      if (textElement && 'text' in textElement && textElement.text) {
         text = textElement.text
       }
     }
   }
-  
+
   return {
     id: el.id,
     type: el.type,
@@ -200,288 +166,349 @@ function summarizeElement(el: ExcalidrawElement, allElements?: readonly Excalidr
     height: el.height,
     strokeColor: el.strokeColor,
     backgroundColor: el.backgroundColor,
-    containerId: el.containerId,  // 绑定的容器 id（文字元素会有此字段）
+    containerId: 'containerId' in el ? (el.containerId ?? undefined) : undefined,
   }
 }
 
 export const ExcalidrawWrapper = forwardRef<ExcalidrawWrapperRef, ExcalidrawWrapperProps>(
-  function ExcalidrawWrapper({ className, onElementsChange, onSelectionChange, zenModeEnabled = false, initialSessionId = null }, ref) {
+  function ExcalidrawWrapper(
+    {
+      className,
+      onElementsChange,
+      onSelectionChange,
+      onThemeChange,
+      zenModeEnabled = false,
+      initialSessionId = null,
+      langCode,
+    },
+    ref
+  ) {
     const excalidrawAPIRef = useRef<ExcalidrawImperativeAPI | null>(null)
-    const lastSelectedIdsRef = useRef<string[]>([])
-    // 当前会话 ID
+    const lastSelectedIdsRef = useRef<string>('')
     const currentSessionIdRef = useRef<string | null>(initialSessionId)
-    // 当前是否使用独立画布（初始默认 false，即使用共享画布）
     const currentUseIndependentCanvasRef = useRef<boolean>(false)
-    // 使用懒初始化确保首次渲染时就有数据（初始加载共享画布）
+    const writerRef = useRef(
+      createDebouncedWriter(getStorageKey(initialSessionId, false), 500)
+    )
     const [initialData] = useState(() => loadCanvasData(initialSessionId, false))
+    const resolvedLang = langCode ?? excalidrawLangCode(getLocale())
 
-    // 处理 URL hash 中的 addLibrary 参数
+    const resetWriter = useCallback((sessionId: string | null, independent: boolean) => {
+      writerRef.current.flush()
+      writerRef.current = createDebouncedWriter(getStorageKey(sessionId, independent), 500)
+    }, [])
+
     useEffect(() => {
       const libraryParams = parseAddLibraryFromHash()
       if (!libraryParams) return
 
-      // 等待 API 就绪后才能调用 updateLibrary
       const checkAndLoad = () => {
         const api = excalidrawAPIRef.current
         if (!api) {
-          // API 还没准备好，稍后再试
           setTimeout(checkAndLoad, 200)
           return
         }
 
-        api.updateLibrary({
-          libraryItems: fetchLibraryItems(libraryParams.libraryUrl),
-          merge: true,
-          prompt: true,           // 显示确认对话框
-          openLibraryMenu: true,  // 完成后打开 library 面板
-          defaultStatus: 'unpublished',
-        }).then(() => {
-          // 清除 hash，避免刷新时重复触发
-          history.replaceState(null, '', window.location.pathname + window.location.search)
-        }).catch((err: unknown) => {
-          console.warn('Failed to load library from URL:', err)
-        })
+        api
+          .updateLibrary({
+            libraryItems: fetchLibraryItems(libraryParams.libraryUrl),
+            merge: true,
+            prompt: true,
+            openLibraryMenu: true,
+            defaultStatus: 'unpublished',
+          })
+          .then(() => {
+            history.replaceState(null, '', window.location.pathname + window.location.search)
+          })
+          .catch((err: unknown) => {
+            console.warn('Failed to load library from URL:', err)
+          })
       }
 
       checkAndLoad()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [])
 
-    // 暴露方法给父组件
-    useImperativeHandle(ref, () => ({
-      addElements: (newElements: ParsedElement[]) => {
-        const api = excalidrawAPIRef.current
-        if (!api || !newElements || newElements.length === 0) return
+    useEffect(() => {
+      const flush = () => writerRef.current.flush()
+      window.addEventListener('beforeunload', flush)
+      return () => {
+        flush()
+        window.removeEventListener('beforeunload', flush)
+      }
+    }, [])
 
-        const currentElements = api.getSceneElements()
-        const existingElementsMap = new Map(
-          currentElements.map((el: ExcalidrawElement) => [el.id, el])
-        )
+    useImperativeHandle(
+      ref,
+      () => ({
+        addElements: (newElements: ParsedElement[]) => {
+          const api = excalidrawAPIRef.current
+          if (!api || !newElements || newElements.length === 0) return
 
-        // 分离需要更新的元素和需要添加的新元素
-        const elementsToUpdate: ParsedElement[] = []
-        const elementsToAdd: ParsedElement[] = []
+          const currentElements = api.getSceneElements()
+          const existingElementsMap = new Map(currentElements.map((el) => [el.id, el]))
 
-        const validTypes = ['rectangle', 'ellipse', 'diamond', 'text', 'arrow', 'line']
-        
-        newElements.forEach(el => {
-          if (existingElementsMap.has(el.id)) {
-            // ID 已存在，更新该元素（只需要 id 和要修改的属性）
-            elementsToUpdate.push(el)
-          } else {
-            // 新元素必须有完整的必需字段
-            if (
-              el.type && 
+          const elementsToUpdate: ParsedElement[] = []
+          const elementsToAdd: ParsedElement[] = []
+          const validTypes = ['rectangle', 'ellipse', 'diamond', 'text', 'arrow', 'line']
+
+          newElements.forEach((el) => {
+            if (existingElementsMap.has(el.id)) {
+              elementsToUpdate.push(el)
+            } else if (
+              el.type &&
               validTypes.includes(el.type as string) &&
-              typeof el.x === 'number' && 
+              typeof el.x === 'number' &&
               typeof el.y === 'number'
             ) {
               elementsToAdd.push(el)
             }
-          }
-        })
-
-        // 构建新的元素列表
-        let updatedElements = [...currentElements]
-
-        // 更新已存在的元素（只合并 AI 返回的属性，其他属性保持原值）
-        if (elementsToUpdate.length > 0) {
-          updatedElements = updatedElements.map(existingEl => {
-            const update = elementsToUpdate.find(el => el.id === existingEl.id)
-            if (!update) return existingEl
-            // 只覆盖 AI 返回的属性，其他保持原值
-            return { ...existingEl, ...update }
           })
-        }
 
-        // 添加新元素（需要添加默认值）
-        if (elementsToAdd.length > 0) {
-          const newElementsWithDefaults = elementsToAdd.map(el => ({
-            ...getDefaultElementProps(),
-            ...getTypeSpecificProps(el.type as string, el),
-            ...el,
-          }))
-          updatedElements = [...updatedElements, ...newElementsWithDefaults]
-        }
+          let updatedElements = [...currentElements] as ExcalidrawElement[]
 
-        api.updateScene({
-          elements: updatedElements,
-        })
-      },
-      clearCanvas: () => {
-        const api = excalidrawAPIRef.current
-        if (!api) return
-        api.updateScene({ elements: [] })
-        // 清除当前会话的画布数据
-        const storageKey = getStorageKey(currentSessionIdRef.current, currentUseIndependentCanvasRef.current)
-        localStorage.removeItem(storageKey)
-      },
-      deleteElements: (ids: string[]) => {
-        const api = excalidrawAPIRef.current
-        if (!api) return { deleted: [], notFound: ids }
-
-        const currentElements = api.getSceneElements()
-        const existingIds = new Set(currentElements.map((el: ExcalidrawElement) => el.id))
-        
-        // 分类：存在的和不存在的
-        const toDelete = new Set<string>()
-        const notFound: string[] = []
-        
-        for (const id of ids) {
-          if (existingIds.has(id)) {
-            toDelete.add(id)
-          } else {
-            notFound.push(id)
+          if (elementsToUpdate.length > 0) {
+            updatedElements = updatedElements.map((existingEl) => {
+              const update = elementsToUpdate.find((el) => el.id === existingEl.id)
+              if (!update) return existingEl
+              return { ...existingEl, ...update } as ExcalidrawElement
+            })
           }
-        }
-        
-        // 查找需要级联删除的绑定元素（如删除形状时自动删除其中的文字）
-        for (const el of currentElements) {
-          if (toDelete.has(el.id) && el.boundElements && Array.isArray(el.boundElements)) {
-            for (const bound of el.boundElements) {
-              if (existingIds.has(bound.id)) {
-                toDelete.add(bound.id)
+
+          if (elementsToAdd.length > 0) {
+            const newElementsWithDefaults = elementsToAdd.map(
+              (el) =>
+                ({
+                  ...getDefaultElementProps(),
+                  ...getTypeSpecificProps(el.type as string, el),
+                  ...el,
+                }) as ExcalidrawElement
+            )
+            updatedElements = [...updatedElements, ...newElementsWithDefaults]
+          }
+
+          api.updateScene({ elements: updatedElements })
+        },
+        clearCanvas: () => {
+          const api = excalidrawAPIRef.current
+          if (!api) return
+          api.updateScene({ elements: [] })
+          const storageKey = getStorageKey(
+            currentSessionIdRef.current,
+            currentUseIndependentCanvasRef.current
+          )
+          removeStorage(storageKey)
+          writerRef.current.cancel()
+        },
+        deleteElements: (ids: string[]) => {
+          const api = excalidrawAPIRef.current
+          if (!api) return { deleted: [], notFound: ids }
+
+          const currentElements = api.getSceneElements()
+          const existingIds = new Set(currentElements.map((el) => el.id))
+
+          const toDelete = new Set<string>()
+          const notFound: string[] = []
+
+          for (const id of ids) {
+            if (existingIds.has(id)) toDelete.add(id)
+            else notFound.push(id)
+          }
+
+          for (const el of currentElements) {
+            if (toDelete.has(el.id) && el.boundElements && Array.isArray(el.boundElements)) {
+              for (const bound of el.boundElements) {
+                if (existingIds.has(bound.id)) toDelete.add(bound.id)
               }
             }
           }
-        }
-        
-        // 过滤掉要删除的元素
-        const remainingElements = currentElements.filter(
-          (el: ExcalidrawElement) => !toDelete.has(el.id)
-        )
-        
-        api.updateScene({ elements: remainingElements })
-        
-        return { 
-          deleted: Array.from(toDelete), 
-          notFound 
-        }
-      },
-      getElements: () => {
-        const api = excalidrawAPIRef.current
-        return api ? api.getSceneElements() : []
-      },
-      getSelectedElements: () => {
-        const api = excalidrawAPIRef.current
-        if (!api) return []
-        try {
-          const appState = api.getAppState()
-          const selectedElementIds = appState?.selectedElementIds || {}
-          return api.getSceneElements().filter((el: ExcalidrawElement) =>
-            selectedElementIds[el.id] === true
-          )
-        } catch {
-          return []
-        }
-      },
-      getCanvasState: () => {
-        const api = excalidrawAPIRef.current
-        if (!api) return []
-        const allElements = api.getSceneElements()
-        return allElements.map((el: ExcalidrawElement) => summarizeElement(el, allElements))
-      },
-      getSelectedElementsSummary: () => {
-        const api = excalidrawAPIRef.current
-        if (!api) return []
-        try {
-          const appState = api.getAppState()
-          const selectedElementIds = appState?.selectedElementIds || {}
+
+          const remainingElements = currentElements.filter((el) => !toDelete.has(el.id))
+          api.updateScene({ elements: remainingElements })
+
+          return { deleted: Array.from(toDelete), notFound }
+        },
+        updateElements: (elements: ParsedElement[]) => {
+          const api = excalidrawAPIRef.current
+          if (!api) {
+            return { updated: [], notFound: elements.map((e) => e.id) }
+          }
+
+          const currentElements = api.getSceneElements()
+          const existingIds = new Set(currentElements.map((el) => el.id))
+          const updates = new Map(elements.map((el) => [el.id, el]))
+          const updated: string[] = []
+          const notFound: string[] = []
+
+          for (const el of elements) {
+            if (existingIds.has(el.id)) updated.push(el.id)
+            else notFound.push(el.id)
+          }
+
+          if (updated.length === 0) return { updated, notFound }
+
+          const next = currentElements.map((existingEl) => {
+            const update = updates.get(existingEl.id)
+            if (!update) return existingEl
+            return { ...existingEl, ...update } as ExcalidrawElement
+          })
+
+          api.updateScene({ elements: next })
+          return { updated, notFound }
+        },
+        getElements: () => {
+          const api = excalidrawAPIRef.current
+          return api ? api.getSceneElements() : []
+        },
+        getCanvasState: () => {
+          const api = excalidrawAPIRef.current
+          if (!api) return []
           const allElements = api.getSceneElements()
-          const allElementsMap = new Map(allElements.map((el: ExcalidrawElement) => [el.id, el]))
-          
-          // 获取选中的元素
-          const selectedElements = allElements.filter(
-            (el: ExcalidrawElement) => selectedElementIds[el.id] === true
-          )
-          
-          // 收集选中元素及其 boundElements
-          const resultIds = new Set<string>()
-          const result: ElementSummary[] = []
-          
-          for (const el of selectedElements) {
-            // 添加选中的元素
-            if (!resultIds.has(el.id)) {
-              resultIds.add(el.id)
-              result.push(summarizeElement(el, allElements))
-            }
-            
-            // 添加绑定的元素（如形状内的文字）
-            if (el.boundElements && Array.isArray(el.boundElements)) {
-              for (const bound of el.boundElements) {
-                if (!resultIds.has(bound.id)) {
-                  const boundEl = allElementsMap.get(bound.id)
-                  if (boundEl) {
-                    resultIds.add(bound.id)
-                    result.push(summarizeElement(boundEl, allElements))
+          return allElements.map((el) => summarizeElement(el, allElements))
+        },
+        getSelectedElementsSummary: () => {
+          const api = excalidrawAPIRef.current
+          if (!api) return []
+          try {
+            const appState = api.getAppState()
+            const selectedElementIds = appState?.selectedElementIds || {}
+            const allElements = api.getSceneElements()
+            const allElementsMap = new Map(allElements.map((el) => [el.id, el]))
+
+            const selectedElements = allElements.filter(
+              (el) => selectedElementIds[el.id] === true
+            )
+
+            const resultIds = new Set<string>()
+            const result: ElementSummary[] = []
+
+            for (const el of selectedElements) {
+              if (!resultIds.has(el.id)) {
+                resultIds.add(el.id)
+                result.push(summarizeElement(el, allElements))
+              }
+
+              if (el.boundElements && Array.isArray(el.boundElements)) {
+                for (const bound of el.boundElements) {
+                  if (!resultIds.has(bound.id)) {
+                    const boundEl = allElementsMap.get(bound.id)
+                    if (boundEl) {
+                      resultIds.add(bound.id)
+                      result.push(summarizeElement(boundEl, allElements))
+                    }
                   }
                 }
               }
             }
+
+            return result
+          } catch {
+            return []
           }
-          
-          return result
-        } catch {
-          return []
+        },
+        getCanvasBounds: () => {
+          const api = excalidrawAPIRef.current
+          if (!api) return null
+          const elements = api.getSceneElements().filter((el) => !el.isDeleted)
+          if (elements.length === 0) return null
+          try {
+            const [minX, minY, maxX, maxY] = getCommonBounds(elements)
+            return { minX, minY, maxX, maxY }
+          } catch {
+            return null
+          }
+        },
+        scrollToElements: (ids?: string[]) => {
+          const api = excalidrawAPIRef.current
+          if (!api) return
+          const all = api.getSceneElements()
+          const target =
+            ids && ids.length > 0 ? all.filter((el) => ids.includes(el.id)) : all
+          if (target.length === 0) return
+          api.scrollToContent(target, { fitToContent: true, animate: true })
+        },
+        switchToSession: (sessionId: string | null, useIndependentCanvas = false) => {
+          const api = excalidrawAPIRef.current
+          if (!api) return
+
+          const currentElements = api.getSceneElements()
+          const activeElements = currentElements.filter((el) => !el.isDeleted)
+          writerRef.current.write({ elements: activeElements })
+          writerRef.current.flush()
+
+          currentSessionIdRef.current = sessionId
+          currentUseIndependentCanvasRef.current = useIndependentCanvas
+          resetWriter(sessionId, useIndependentCanvas)
+
+          const newData = loadCanvasData(sessionId, useIndependentCanvas)
+
+          if (newData) {
+            api.updateScene({ elements: newData.elements })
+          } else if (useIndependentCanvas) {
+            api.updateScene({ elements: [] })
+          }
+        },
+        getCurrentSessionId: () => currentSessionIdRef.current,
+        isReady: () => excalidrawAPIRef.current !== null,
+      }),
+      [resetWriter]
+    )
+
+    const handleChange = useCallback(
+      (elements: readonly ExcalidrawElement[], appState: AppState) => {
+        const activeElements = elements.filter((el) => !el.isDeleted)
+        writerRef.current.write({ elements: activeElements })
+        onElementsChange?.(activeElements)
+
+        if (appState?.theme) {
+          onThemeChange?.(appState.theme === THEME.DARK ? 'dark' : 'light')
+        }
+
+        if (appState?.selectedElementIds) {
+          try {
+            const currentKeys = Object.keys(appState.selectedElementIds).sort().join(',')
+            if (currentKeys !== lastSelectedIdsRef.current) {
+              lastSelectedIdsRef.current = currentKeys
+              const api = excalidrawAPIRef.current
+              if (api) {
+                onSelectionChange?.(
+                  // use the same summary path
+                  (() => {
+                    const allElements = elements
+                    const allElementsMap = new Map(allElements.map((el) => [el.id, el]))
+                    const selectedElements = allElements.filter(
+                      (el) => appState.selectedElementIds[el.id] === true
+                    )
+                    const resultIds = new Set<string>()
+                    const result: ElementSummary[] = []
+                    for (const el of selectedElements) {
+                      if (!resultIds.has(el.id)) {
+                        resultIds.add(el.id)
+                        result.push(summarizeElement(el, allElements))
+                      }
+                      if (el.boundElements && Array.isArray(el.boundElements)) {
+                        for (const bound of el.boundElements) {
+                          if (!resultIds.has(bound.id)) {
+                            const boundEl = allElementsMap.get(bound.id)
+                            if (boundEl) {
+                              resultIds.add(bound.id)
+                              result.push(summarizeElement(boundEl, allElements))
+                            }
+                          }
+                        }
+                      }
+                    }
+                    return result
+                  })()
+                )
+              }
+            }
+          } catch {
+            // ignore
+          }
         }
       },
-      switchToSession: (sessionId: string | null, useIndependentCanvas = false) => {
-        const api = excalidrawAPIRef.current
-        if (!api) return
-
-        // 保存当前画布到当前会话
-        const currentElements = api.getSceneElements()
-        const activeElements = currentElements.filter((el: ExcalidrawElement) => !el.isDeleted)
-        saveCanvasData(activeElements, currentSessionIdRef.current, currentUseIndependentCanvasRef.current)
-
-        // 更新当前会话状态
-        currentSessionIdRef.current = sessionId
-        currentUseIndependentCanvasRef.current = useIndependentCanvas
-
-        // 加载目标会话的画布数据
-        const newData = loadCanvasData(sessionId, useIndependentCanvas)
-        
-        if (newData) {
-          // 有数据，加载
-          api.updateScene({ elements: newData.elements })
-        } else if (useIndependentCanvas) {
-          // 新会话且没有数据，显示空画布
-          api.updateScene({ elements: [] })
-        }
-        // 老会话没有数据时，保持当前画布（共享画布已经加载）
-      },
-      getCurrentSessionId: () => currentSessionIdRef.current,
-      isReady: () => excalidrawAPIRef.current !== null,
-    }), [])
-
-    // 处理变更
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = useCallback((elements: readonly ExcalidrawElement[], appState: any) => {
-      // 过滤掉已删除的元素
-      const activeElements = elements.filter(el => !el.isDeleted)
-      // 保存到当前会话的存储
-      saveCanvasData(activeElements, currentSessionIdRef.current, currentUseIndependentCanvasRef.current)
-      onElementsChange?.(activeElements)
-
-      // 检查选择变化（使用传入的 appState）
-      if (appState?.selectedElementIds) {
-        try {
-          const currentSelectedIds = appState.selectedElementIds
-          const currentKeys = Object.keys(currentSelectedIds).sort()
-          const lastKeys = lastSelectedIdsRef.current.sort()
-          const keysChanged = JSON.stringify(currentKeys) !== JSON.stringify(lastKeys)
-
-          if (keysChanged) {
-            lastSelectedIdsRef.current = currentKeys
-            const selectedElements = elements.filter((el: ExcalidrawElement) =>
-              currentSelectedIds[el.id] === true
-            )
-            onSelectionChange?.(selectedElements)
-          }
-        } catch {
-          // ignore
-        }
-      }
-    }, [onElementsChange, onSelectionChange])
+      [onElementsChange, onSelectionChange, onThemeChange]
+    )
 
     return (
       <div className={className}>
@@ -495,16 +522,18 @@ export const ExcalidrawWrapper = forwardRef<ExcalidrawWrapperRef, ExcalidrawWrap
             canvasActions: {
               loadScene: !zenModeEnabled,
               saveToActiveFile: false,
-              toggleTheme: !zenModeEnabled,
-              clearCanvas: false, // 由外部控制
-              export: zenModeEnabled ? false : {
-                saveFileToDisk: true,
-              },
+              toggleTheme: true,
+              clearCanvas: false,
+              export: zenModeEnabled
+                ? false
+                : {
+                    saveFileToDisk: true,
+                  },
             },
           }}
           zenModeEnabled={zenModeEnabled}
           viewModeEnabled={false}
-          langCode="zh-CN"
+          langCode={resolvedLang}
         />
       </div>
     )
