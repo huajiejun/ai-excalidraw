@@ -1,0 +1,162 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - button:
+                  - img
+                - generic:
+                  - img
+                  - generic: AI 绘图助手
+                - button:
+                  - img
+                  - text: 新对话
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 画一个前后端架构图：前端、网关、后端
+                - generic:
+                  - generic:
+                    - generic: 好的。
+              - generic:
+                - generic:
+                  - textbox:
+                    - /placeholder: 描述你想要绘制的图形...
+                  - button [disabled]:
+                    - img
+        - generic:
+          - generic:
+            - button:
+              - img
+            - button [expanded]:
+              - img
+            - button:
+              - img
+              - text: 清空画布
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button [ref=e441] [cursor=pointer]:
+                      - img [ref=e442]
+                    - region:
+                      - generic [ref=e448]:
+                        - generic:
+                          - generic: 要移动画布，请按住鼠标滚轮或空格键同时拖拽鼠标，或使用抓手工具。
+                        - heading [level=2] [ref=e592]: 形状
+                        - generic [ref=e450]:
+                          - generic [ref=e593] [cursor=pointer]:
+                            - checkbox
+                            - img [ref=e453]
+                          - generic [ref=e594] [cursor=pointer]:
+                            - radio
+                            - img [ref=e462]
+                          - generic [ref=e595] [cursor=pointer]:
+                            - radio [checked]
+                            - generic [ref=e470]:
+                              - img [ref=e471]
+                              - generic [ref=e476]: "1"
+                          - generic [ref=e596] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e478]:
+                              - img [ref=e479]
+                              - generic [ref=e483]: "2"
+                          - generic [ref=e597] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e485]:
+                              - img [ref=e486]
+                              - generic [ref=e490]: "3"
+                          - generic [ref=e598] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e492]:
+                              - img [ref=e493]
+                              - generic [ref=e497]: "4"
+                          - generic [ref=e599] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e499]:
+                              - img [ref=e500]
+                              - generic [ref=e505]: "5"
+                          - generic [ref=e600] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e507]:
+                              - img [ref=e508]
+                              - generic [ref=e509]: "6"
+                          - generic [ref=e601] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e511]:
+                              - img [ref=e512]
+                              - generic [ref=e516]: "7"
+                          - generic [ref=e602] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e518]:
+                              - img [ref=e519]
+                              - generic [ref=e524]: "8"
+                          - generic [ref=e603] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e526]:
+                              - img [ref=e527]
+                              - generic [ref=e532]: "9"
+                          - generic [ref=e604] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e534]:
+                              - img [ref=e535]
+                              - generic [ref=e540]: "0"
+                          - button [ref=e605] [cursor=pointer]:
+                            - img [ref=e543]
+                    - generic [ref=e606]:
+                      - checkbox
+                      - img [ref=e552] [cursor=pointer]
+                - contentinfo:
+                  - region [ref=e607]:
+                    - heading [level=2] [ref=e608]: 画布动作
+                    - generic [ref=e561]:
+                      - button [ref=e609] [cursor=pointer]:
+                        - img [ref=e564]
+                      - button [ref=e610] [cursor=pointer]: 100%
+                      - button [ref=e611] [cursor=pointer]:
+                        - img [ref=e569]
+                    - generic [ref=e571]:
+                      - button [disabled] [ref=e612]:
+                        - img [ref=e576]
+                      - button [disabled] [ref=e613]:
+                        - img [ref=e582]
+                  - button [ref=e614] [cursor=pointer]:
+                    - img [ref=e586]
+              - generic:
+                - img
+              - generic: 绘制 Canvas
+  - dialog "API 设置" [ref=e616]:
+    - generic [ref=e617]:
+      - heading "API 设置" [level=2] [ref=e618]
+      - button [active] [ref=e619]:
+        - img [ref=e620]
+    - generic [ref=e623]:
+      - generic [ref=e624]:
+        - text: API Key
+        - textbox "sk-..." [ref=e625]: sk-test-mock
+      - generic [ref=e626]:
+        - text: Base URL
+        - textbox "https://api.openai.com/v1" [ref=e627]: http://localhost:5176/mock-ai/v1
+        - paragraph [ref=e628]: 支持 OpenAI 兼容的 API，如智谱、阿里百炼等
+      - generic [ref=e629]:
+        - text: 模型
+        - textbox "gpt-4o" [ref=e630]: mock-gpt
+      - generic [ref=e631]:
+        - text: 语言
+        - combobox [ref=e632]:
+          - option "中文" [selected]
+          - option "English"
+      - generic [ref=e634]:
+        - button "导出备份" [ref=e635]:
+          - img [ref=e636]
+          - text: 导出备份
+        - button "导入备份" [ref=e639]:
+          - img [ref=e640]
+          - text: 导入备份
+    - generic [ref=e643]:
+      - button "取消" [ref=e644]
+      - button "保存" [ref=e645]

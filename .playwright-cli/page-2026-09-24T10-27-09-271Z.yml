@@ -1,0 +1,78 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - button:
+                  - img
+                - generic:
+                  - img
+                  - generic: AI 绘图助手
+                - button:
+                  - img
+                  - text: 新对话
+              - generic:
+                - generic:
+                  - img
+                  - paragraph: AI 绘图助手
+                  - paragraph: 描述你想要绘制的图形，AI 会自动生成并渲染到画布上
+                  - generic:
+                    - paragraph: 试试这些：
+                    - paragraph: 「画一个简单的流程图：开始→处理→结束」
+                    - paragraph: 「画一个前后端架构图」
+                    - paragraph: 「用矩形和箭头画一个组织架构」
+              - generic:
+                - generic:
+                  - textbox:
+                    - /placeholder: 描述你想要绘制的图形...
+                  - button [disabled]:
+                    - img
+        - generic:
+          - generic:
+            - button:
+              - img
+            - button [expanded]:
+              - img
+            - button:
+              - img
+              - text: 清空画布
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+              - generic: Loading scene…
+  - dialog "API 设置" [ref=e2]:
+    - generic [ref=e3]:
+      - heading "API 设置" [level=2] [ref=e4]
+      - button [active] [ref=e5]:
+        - img [ref=e6]
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - text: API Key
+        - textbox "sk-..." [ref=e11]
+      - generic [ref=e12]:
+        - text: Base URL
+        - textbox "https://api.openai.com/v1" [ref=e13]
+        - paragraph [ref=e14]: 支持 OpenAI 兼容的 API，如智谱、阿里百炼等
+      - generic [ref=e15]:
+        - text: 模型
+        - textbox "gpt-4o" [ref=e16]
+      - generic [ref=e17]:
+        - text: 语言
+        - combobox [ref=e18]:
+          - option "中文" [selected]
+          - option "English"
+      - generic [ref=e20]:
+        - button "导出备份" [ref=e21]:
+          - img [ref=e22]
+          - text: 导出备份
+        - button "导入备份" [ref=e25]:
+          - img [ref=e26]
+          - text: 导入备份
+    - generic [ref=e29]:
+      - button "取消" [ref=e30]
+      - button "保存" [disabled]

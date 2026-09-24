@@ -1,0 +1,121 @@
+- generic [ref=e4]:
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button [ref=e10]:
+        - img [ref=e11]
+      - generic [ref=e13]:
+        - img [ref=e14]
+        - generic [ref=e17]: AI 绘图助手
+      - button "新对话" [ref=e18]:
+        - img [ref=e19]
+        - text: 新对话
+    - generic [ref=e20]:
+      - generic [ref=e254]: 画一个前后端架构图：前端、网关、后端
+      - generic [ref=e257]: 好的。
+    - generic [ref=e33]:
+      - textbox "描述你想要绘制的图形..." [ref=e34]
+      - button [disabled]:
+        - img
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - button "关闭 AI 面板" [ref=e37]:
+        - img [ref=e38]
+      - button "API 设置" [ref=e41]:
+        - img [ref=e42]
+      - button "清空画布" [ref=e45]:
+        - img [ref=e46]
+        - text: 清空画布
+    - generic [ref=e50]:
+      - generic:
+        - generic:
+          - generic:
+            - button [ref=e53] [cursor=pointer]:
+              - img [ref=e54]
+            - region "形状":
+              - generic [ref=e60]:
+                - generic:
+                  - generic: 要移动画布，请按住鼠标滚轮或空格键同时拖拽鼠标，或使用抓手工具。
+                - heading "形状" [level=2] [ref=e61]
+                - generic [ref=e62]:
+                  - generic "绘制后保持所选的工具栏状态 — Q" [ref=e63] [cursor=pointer]:
+                    - checkbox "绘制后保持所选的工具栏状态"
+                    - img [ref=e65]
+                  - generic "抓手（平移工具） — H" [ref=e72] [cursor=pointer]:
+                    - radio "抓手（平移工具） — H"
+                    - img [ref=e74]
+                  - generic "选择 — V 或 1" [ref=e81] [cursor=pointer]:
+                    - radio "选择" [checked]
+                    - generic [ref=e82]:
+                      - img [ref=e83]
+                      - generic [ref=e88]: "1"
+                  - generic "矩形 — R 或 2" [ref=e89] [cursor=pointer]:
+                    - radio "矩形"
+                    - generic [ref=e90]:
+                      - img [ref=e91]
+                      - generic [ref=e95]: "2"
+                  - generic "菱形 — D 或 3" [ref=e96] [cursor=pointer]:
+                    - radio "菱形"
+                    - generic [ref=e97]:
+                      - img [ref=e98]
+                      - generic [ref=e102]: "3"
+                  - generic "椭圆 — O 或 4" [ref=e103] [cursor=pointer]:
+                    - radio "椭圆"
+                    - generic [ref=e104]:
+                      - img [ref=e105]
+                      - generic [ref=e109]: "4"
+                  - generic "箭头 — A 或 5" [ref=e110] [cursor=pointer]:
+                    - radio "箭头"
+                    - generic [ref=e111]:
+                      - img [ref=e112]
+                      - generic [ref=e117]: "5"
+                  - generic "线条 — L 或 6" [ref=e118] [cursor=pointer]:
+                    - radio "线条"
+                    - generic [ref=e119]:
+                      - img [ref=e120]
+                      - generic [ref=e121]: "6"
+                  - generic "自由书写 — P 或 7" [ref=e122] [cursor=pointer]:
+                    - radio "自由书写"
+                    - generic [ref=e123]:
+                      - img [ref=e124]
+                      - generic [ref=e128]: "7"
+                  - generic "文字 — T 或 8" [ref=e129] [cursor=pointer]:
+                    - radio "文字"
+                    - generic [ref=e130]:
+                      - img [ref=e131]
+                      - generic [ref=e136]: "8"
+                  - generic "插入图像 — 9" [ref=e137] [cursor=pointer]:
+                    - radio "插入图像"
+                    - generic [ref=e138]:
+                      - img [ref=e139]
+                      - generic [ref=e144]: "9"
+                  - generic "橡皮 — E 或 0" [ref=e145] [cursor=pointer]:
+                    - radio "橡皮"
+                    - generic [ref=e146]:
+                      - img [ref=e147]
+                      - generic [ref=e152]: "0"
+                  - button "更多工具" [ref=e154] [cursor=pointer]:
+                    - img [ref=e155]
+            - generic "素材库" [ref=e161]:
+              - checkbox "素材库"
+              - generic [ref=e162] [cursor=pointer]:
+                - img [ref=e164]
+                - generic: 素材库
+        - contentinfo:
+          - region "画布动作" [ref=e170]:
+            - heading "画布动作" [level=2] [ref=e171]
+            - generic [ref=e173]:
+              - button "缩小" [ref=e174] [cursor=pointer]:
+                - img [ref=e176]
+              - button "重置缩放" [ref=e178] [cursor=pointer]: 100%
+              - button "放大" [ref=e179] [cursor=pointer]:
+                - img [ref=e181]
+            - generic [ref=e183]:
+              - button "撤销" [disabled] [ref=e186]:
+                - img [ref=e188]
+              - button "重做" [disabled] [ref=e192]:
+                - img [ref=e194]
+          - button "帮助" [ref=e197] [cursor=pointer]:
+            - img [ref=e198]
+      - generic:
+        - img
+      - generic [ref=e203]: 绘制 Canvas
