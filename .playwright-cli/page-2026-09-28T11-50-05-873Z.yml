@@ -1,0 +1,812 @@
+- generic:
+  - generic:
+    - generic:
+      - navigation:
+        - generic:
+          - paragraph: Create Workspace
+        - generic:
+          - button:
+            - img
+          - button [disabled]:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+      - generic:
+        - generic:
+          - paragraph: Local
+          - generic:
+            - button:
+              - img
+        - generic:
+          - paragraph: Remote
+          - generic:
+            - button:
+              - img
+        - generic:
+          - paragraph: Projects
+          - generic:
+            - button:
+              - img
+        - generic:
+          - generic:
+            - button:
+              - img
+            - button:
+              - img
+            - button: 在线
+          - button:
+            - img
+          - paragraph: v0.1.44
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作区
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - textbox:
+                          - /placeholder: 搜索...
+                    - generic:
+                      - generic:
+                        - button:
+                          - img
+                        - button:
+                          - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - button:
+                          - generic: 需要注意
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 时间分割线验证2
+                            - generic:
+                              - img
+                              - generic: 1h ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                    - generic:
+                      - generic:
+                        - button:
+                          - generic: 运行中
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: 没有工作区
+                    - generic:
+                      - generic:
+                        - button:
+                          - generic: 空闲
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 时间分割线验证2
+                            - generic:
+                              - generic: 38m ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 时间分割线验证
+                            - generic:
+                              - generic: 1h ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 请只回复：ok
+                            - generic:
+                              - generic: 11d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 请只回复两个字：好的
+                            - generic:
+                              - generic: 11d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: vk shell P1 验证
+                            - generic:
+                              - generic: 14d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 给我随机生成一个markdown文件，我要验证marddown查看器的效果
+                            - generic:
+                              - generic: 40d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: hi
+                            - generic:
+                              - generic: 40d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 你是谁，我想统计一下用量
+                            - generic:
+                              - generic: 46d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 你是谁
+                            - generic:
+                              - generic: 89d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 测试hi
+                            - generic:
+                              - generic: 98d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 新的语音接口
+                            - generic:
+                              - generic: 119d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                        - generic:
+                          - button:
+                            - generic:
+                              - generic: 工作区排序规则
+                            - generic:
+                              - img
+                              - generic: 162d ago
+                          - generic:
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - button:
+                        - generic: 主工作区
+                        - generic:
+                          - img
+                - generic:
+                  - button:
+                    - img
+                    - generic: 查看归档
+                    - generic: "50"
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - heading [level=2]: 你想做什么工作？
+                            - generic:
+                              - button
+                              - generic:
+                                - generic:
+                                  - img
+                                  - button:
+                                    - generic: Claude Code
+                                    - img
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - textbox
+                                    - generic: Describe the task...
+                                - generic:
+                                  - generic:
+                                    - button:
+                                      - img
+                                    - button:
+                                      - generic: Opus · High
+                                      - img
+                                    - button:
+                                      - img
+                                    - button:
+                                      - img
+                                    - button: vk-shell-test-repo · master
+                                  - generic:
+                                    - button [disabled]: 创建
+  - generic:
+    - generic:
+      - generic:
+        - generic: Organization
+        - button:
+          - img
+      - button:
+        - img
+        - text: Workspaces
+      - generic:
+        - generic:
+          - img
+          - paragraph: Kanban Boards
+          - paragraph: Sign in to organise your coding agents with kanban boards.
+          - generic:
+            - button: Sign in
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - heading [level=2]: 设置
+        - navigation:
+          - generic:
+            - generic:
+              - generic: Machine Settings
+            - generic:
+              - button:
+                - generic: This machine
+                - img
+            - generic:
+              - button:
+                - img
+                - generic: 常规
+              - button:
+                - img
+                - generic: 仓库
+              - button:
+                - img
+                - generic: 代理
+              - button:
+                - img
+                - generic: MCP 服务器
+              - button:
+                - img
+                - generic: Notion 集成
+              - button:
+                - img
+                - generic: 存储空间
+              - button:
+                - img
+                - generic: 快捷回复
+              - button:
+                - img
+                - generic: 自定义脚本
+          - generic:
+            - generic:
+              - generic: Account Settings
+            - generic:
+              - button:
+                - img
+                - generic: 组织设置
+              - button:
+                - img
+                - generic: 项目
+              - button:
+                - img
+                - generic: Remote Access
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - heading [level=2]: 常规
+              - button:
+                - img
+                - generic: 关闭
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 外观
+                    - paragraph: 自定义应用程序的外观和感觉。
+                - generic:
+                  - generic:
+                    - text: 主题
+                    - button [expanded]:
+                      - generic: System
+                      - img
+                    - paragraph: 选择您喜欢的配色方案。
+                  - generic:
+                    - text: 语言
+                    - button:
+                      - generic: 浏览器默认
+                      - img
+                    - paragraph: 选择您喜欢的语言。浏览器默认将跟随您的系统语言。
+                  - generic:
+                    - text: 侧边栏项目显示上限
+                    - button:
+                      - generic: 5 个（默认）
+                      - img
+                    - paragraph: 超过上限的项目会折叠在左侧栏的"更多"按钮后面。可拖拽排序来控制哪些项目保持可见。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 编辑器
+                    - paragraph: 配置您的代码编辑体验。
+                - generic:
+                  - generic:
+                    - text: 编辑器类型
+                    - button:
+                      - generic: Vs Code
+                      - img
+                    - paragraph: 选择您喜欢的代码编辑器界面。
+                  - generic:
+                    - text: 远程 SSH 主机（可选）
+                    - textbox:
+                      - /placeholder: 例如：主机名或 IP 地址
+                    - paragraph: 如果 Vibe Kanban 在远程服务器上运行，请设置此项。设置后，点击在编辑器中打开将生成 URL 以通过 SSH 打开编辑器，而不是执行本地命令。
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: Auto-install VS Code Extension
+                      - paragraph: Automatically install the Vibe Kanban extension when opening a project in VS Code or Cursor. This runs in the background and has no effect if the extension is already installed.
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 默认编码代理
+                    - paragraph: 选择任务的默认编码代理。
+                - generic:
+                  - generic:
+                    - text: 默认代理配置
+                    - generic:
+                      - button:
+                        - generic: Claude Code
+                        - img
+                      - button:
+                        - generic: 默认
+                        - img
+                    - paragraph: 选择创建任务尝试时使用的默认代理配置。
+                  - generic:
+                    - text: UI 设计模型
+                    - button:
+                      - generic: 跟随智能体默认
+                      - img
+                    - paragraph: 任务 UI 设计面板首次运行使用的模型；选择「跟随智能体默认」则使用代理/预设的默认模型。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: Git
+                    - paragraph: 配置 git 分支命名偏好
+                - generic:
+                  - generic:
+                    - text: 分支前缀
+                    - textbox:
+                      - /placeholder: vk
+                      - text: vk
+                    - paragraph:
+                      - text: 自动生成的分支名称的前缀。留空表示无前缀。 预览：
+                      - code: vk/1a2b-task-name
+                  - generic:
+                    - text: 工作区目录
+                    - generic:
+                      - generic:
+                        - textbox:
+                          - /placeholder: ~/
+                      - button:
+                        - img
+                        - text: 浏览
+                    - paragraph: 工作区将在此路径内的 .vibe-kanban-workspaces 子目录中创建。留空以使用系统默认值。更改需要重启应用程序。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 拉取请求
+                    - paragraph: 配置PR创建行为
+                - generic:
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: 默认自动生成PR描述
+                      - paragraph: 启用后，AI代理将在创建PR后自动更新标题和描述。
+                  - generic:
+                    - checkbox
+                    - generic: 使用自定义提示
+                  - generic:
+                    - textbox [disabled]: "Update the PR that was just created with a better title and description. The PR number is #{pr_number} and the URL is {pr_url}. Analyze the changes in this branch and write: 1. A concise, descriptive title that summarizes the changes, postfixed with \"(Vibe Kanban)\" 2. A detailed description that explains: - What changes were made - Why they were made (based on the task context) - Any important implementation details - At the end, include a note: \"This PR was written using [Vibe Kanban](https://github.com/huajiejun/vibe-kanban-hua)\" IMPORTANT: Preserve any images or attachments already referenced in the current PR body. You may reorganize the description, but never remove or break those image/attachment references — reviewers rely on them. Use the appropriate CLI tool to update the PR (gh pr edit for GitHub, az repos pr update for Azure DevOps)."
+                    - paragraph: "生成PR描述时AI代理使用的自定义提示。使用{pr_number}和{pr_url}作为占位符。"
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 提交
+                    - paragraph: 配置任务尝试的提交行为
+                - generic:
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: 提交提醒
+                      - paragraph: 提示支持的代理在停止前提交更改。
+                  - generic:
+                    - checkbox
+                    - generic: 使用自定义提示
+                  - generic:
+                    - textbox [disabled]: There are uncommitted changes. Please stage and commit them now with a descriptive commit message.
+                    - paragraph: 提交提醒的自定义提示。git 状态将自动追加。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 通知
+                    - paragraph: 控制何时以及如何接收通知。
+                - generic:
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: 声音通知
+                      - paragraph: 任务尝试完成运行时播放声音。
+                  - generic:
+                    - text: 声音
+                    - generic:
+                      - generic:
+                        - button:
+                          - generic: Cow Mooing
+                          - img
+                      - button:
+                        - img
+                    - paragraph: 选择任务完成时播放的声音。点击音量按钮预览。
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: 推送通知
+                      - paragraph: 任务尝试完成运行时显示系统通知。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 消息输入
+                    - paragraph: 配置在聊天输入中发送消息的方式。
+                - generic:
+                  - generic:
+                    - text: 发送消息快捷键
+                    - button:
+                      - generic: ⌘+Enter
+                      - img
+                    - paragraph: 选择发送消息的键盘快捷键。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 隐私
+                    - paragraph: 通过共享匿名使用数据帮助改进 Vibe-Kanban。
+                - generic:
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - text: 启用遥测
+                      - paragraph: 启用匿名使用事件跟踪以帮助改进应用程序。不会收集提示或项目信息。
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 标签
+                    - paragraph: 创建可使用 @tag_name 插入到任务描述中的可重用文本片段。
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading [level=3]: 任务标签
+                      - button:
+                        - text: 添加标签
+                        - img
+                    - generic:
+                      - generic:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - columnheader: 标签名称
+                              - columnheader: 内容
+                              - columnheader: 操作
+                          - rowgroup:
+                            - row:
+                              - cell: "@add_unit_tests"
+                              - cell:
+                                - generic: "Write unit tests to improve code coverage and ensure reliability. ## Unit Testing Checklist ### 1. Identify What to Test - [ ] Run coverage report to find untested functions - [ ] List the specific functions/methods to test - [ ] Note current coverage percentage ### 2. Write Tests - [ ] Test the happy path (expected behavior) - [ ] Test edge cases (empty inputs, boundaries) - [ ] Test error cases (invalid inputs, exceptions) - [ ] Mock external dependencies - [ ] Use descriptive test names ### 3. Test Quality - [ ] Each test focuses on one behavior - [ ] Tests can run independently - [ ] No hardcoded values that might change - [ ] Clear assertions that verify the behavior ## Examples to Cover: - Normal inputs → Expected outputs - Empty/null inputs → Proper handling - Invalid inputs → Error cases - Boundary values → Edge case behavior ## Goal Achieve at least 80% coverage for the target component ## Deliverables 1. New test file(s) with comprehensive unit tests 2. Updated coverage report 3. All tests passing"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@bug_analysis"
+                              - cell:
+                                - generic: "Perform a comprehensive analysis of the project codebase to identify potential bugs, code smells, and areas of improvement. ## Analysis Checklist: ### 1. Static Code Analysis - [ ] Run linting tools to identify syntax and style issues - [ ] Check for unused variables, imports, and dead code - [ ] Identify potential type errors or mismatches - [ ] Look for deprecated API usage ### 2. Common Bug Patterns - [ ] Check for null/undefined reference errors - [ ] Identify potential race conditions - [ ] Look for improper error handling - [ ] Check for resource leaks (memory, file handles, connections) - [ ] Identify potential security vulnerabilities (XSS, SQL injection, etc.) ### 3. Code Quality Issues - [ ] Identify overly complex functions (high cyclomatic complexity) - [ ] Look for code duplication - [ ] Check for missing or inadequate input validation - [ ] Identify hardcoded values that should be configurable ### 4. Testing Gaps - [ ] Identify untested code paths - [ ] Check for missing edge case tests - [ ] Look for inadequate error scenario testing ### 5. Performance Concerns - [ ] Identify potential performance bottlenecks - [ ] Check for inefficient algorithms or data structures - [ ] Look for unnecessary database queries or API calls ## Deliverables: 1. Prioritized list of identified issues 2. Recommendations for fixes 3. Estimated effort for addressing each issue"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@code_refactoring"
+                              - cell:
+                                - generic: "Improve code structure and maintainability without changing functionality. ## Refactoring Checklist ### 1. Identify Refactoring Targets - [ ] Run code analysis tools (linters, complexity analyzers) - [ ] Identify code smells (long methods, duplicate code, large classes) - [ ] Check for outdated patterns or deprecated approaches - [ ] Review areas with frequent bugs or changes ### 2. Plan the Refactoring - [ ] Define clear goals (what to improve and why) - [ ] Ensure tests exist for current functionality - [ ] Create a backup branch - [ ] Break down into small, safe steps ### 3. Common Refactoring Actions - [ ] Extract methods from long functions - [ ] Remove duplicate code (DRY principle) - [ ] Rename variables/functions for clarity - [ ] Simplify complex conditionals - [ ] Extract constants from magic numbers/strings - [ ] Group related functionality into modules - [ ] Remove dead code ### 4. Maintain Functionality - [ ] Run tests after each change - [ ] Keep changes small and incremental - [ ] Commit frequently with clear messages - [ ] Verify no behavior has changed ### 5. Code Quality Improvements - [ ] Apply consistent formatting - [ ] Update to modern syntax/features - [ ] Improve error handling - [ ] Add type annotations (if applicable) ## Success Criteria - All tests still pass - Code is more readable and maintainable - No new bugs introduced - Performance not degraded ## Deliverables 1. Refactored code with improved structure 2. All tests passing 3. Brief summary of changes made"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@karpathy"
+                              - cell:
+                                - generic: 请按照 Karpathy Guidelines 的 Simplicity First 和 Surgical Changes 原则
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@superpowers初始任务"
+                              - cell:
+                                - generic: 使用技能：using-superpowers、brainstorming、writing-plans。先读取这些技能说明和仓库里的 CLAUDE.md
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@superpowers常用修问题"
+                              - cell:
+                                - generic: 继续按 using-superpowers、systematic-debugging、test-driven-development 处理
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@使用SuperPower开发SPEC模板"
+                              - cell:
+                                - generic: "### 背景介绍 因为什么原因，遇到了什么问题… ### 需求分析 使用/superpowers: brainstorm技能分析需求： 新做一个模块来解决什么问题，功能需要包含 ### 编写执行计划 使用/superpowers:**writing-plan技能编写执行计划** ### 执行流程 1. /superpowers:**executing-plans 执行计划** 2. 使用**subagent-driven-development 技能开启当前任务** 3. 使用/superpowers:**test-driven-development 技能进行TDD测试驱动开发模式进行开发编程** ### 代码审查 1. 使用 /code-reviewer 审查代码 ### 验收清单 - [ ] 功能开发编译通过，项目正常启动 - [ ] 代码审查通过，无P0级别代码问题 - [ ] 测试覆盖率 > 80% - [ ] 文档更新 ### **Ralph-Loop 配置** - max-iterations: 15 - completion-promise: DEVELOP COMPLETE"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@复杂决策"
+                              - cell:
+                                - generic: 先不要回答我的问题。请先执行以下操作： 1. 指出我在这个问题中隐含的假设； 2. 告诉我哪些关键信息缺失会显著改变你的答案； 3. 告诉我人们在处理这类问题时最常犯的一个错误。 最后，请向我提一个能让你最终答案真正产生价值的问题。 等我回答后，你再给出最终输出
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@持续开发"
+                              - cell:
+                                - generic: /ralph-loop 实现一个xxxx功能 要求： 1. 使用 TDD 方式开发（先写测试再写实现） 2. 遇到 bug 使用 systematic-debugging 排查 3. 完成后运行 verification-before-completion 验证 4. 测试覆盖率 > 80% 完成标准： - 所有 CRUD 接口可用 - 输入验证到位 - 所有测试通过 - 至少完成项目启动E2E验收 - 输出 <promise>COMPLETE</promise> 卡住时（15 次迭代后仍未完成）： - 记录阻塞原因 - 列出已尝试的方案 - 建议替代方案
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@收尾"
+                              - cell:
+                                - generic: 1. 进行代码审查和基础业务逻辑回归 2. 整理文件，图片，按照约定的执行 3. 整理技术文档，归档基线内容
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+                            - row:
+                              - cell: "@添加单元测试"
+                              - cell:
+                                - generic: "编写单元测试以提升代码覆盖率并确保可靠性。 # 测试检查清单 ## 单元测试 - [ ] 识别需要测试的函数/模块 - [ ] 运行覆盖率报告找出未测试的代码 - [ ] 列出需要测试的具体函数/方法 - [ ] 注意当前覆盖率百分比 ## 编写测试 - [ ] 测试正常路径（预期行为） - [ ] 测试边界情况（空输入、边界值） - [ ] 测试错误情况（无效输入、异常） - [ ] Mock 外部依赖 - [ ] 使用描述性的测试名称 ## 测试质量 - [ ] 每个测试只关注一个行为 - [ ] 测试可以独立运行 - [ ] 没有硬编码的值 - [ ] 使用清晰的断言验证行为 ## 需要覆盖的示例 - 正常输入 → 预期输出 - 空/null 输入 → 正确处理 - 无效输入 → 错误情况 - 边界值 → 边界情况行为 ## 目标 至少达到 80% 覆盖率 ## 交付物 1. 新的测试文件，包含全面的单元测试 2. 更新的覆盖率报告 3. 所有测试通过"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                                  - button:
+                                    - img
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 快捷回复规则
+                    - paragraph: 配置关键词触发的预设快捷回复动作
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: 当助手回复消息末尾匹配特定关键词或句式时，在输入框上方自动显示预设快捷回复按钮。
+                      - button:
+                        - text: 添加规则
+                        - img
+                    - generic:
+                      - generic:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - columnheader: 启用
+                              - columnheader: 规则名称
+                              - columnheader: 匹配模式
+                              - columnheader: 预设按钮
+                              - columnheader: 操作
+                          - rowgroup:
+                            - row:
+                              - cell:
+                                - switch [checked]
+                              - cell:
+                                - generic:
+                                  - generic: 确认执行计划
+                                  - generic: 系统内置
+                              - cell: (计划已保存完成.*是否开始执行|是否开始执行[？?]?$)
+                              - cell:
+                                - generic:
+                                  - generic: "[开始执行]"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                            - row:
+                              - cell:
+                                - switch [checked]
+                              - cell:
+                                - generic:
+                                  - generic: 自动继续 / 分步执行确认
+                                  - generic: 系统内置
+                              - cell: (是否继续(?:下一步|后续步骤|执行)?|是否继续[？?]?$|需要继续吗[？?]?$)
+                              - cell:
+                                - generic:
+                                  - generic: "[继续下一步]"
+                                  - generic: "[暂停/查看详情]"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                            - row:
+                              - cell:
+                                - switch [checked]
+                              - cell:
+                                - generic:
+                                  - generic: 测试与代码审查
+                                  - generic: 系统内置
+                              - cell: (是否(?:现在|立即)?(?:运行测试|执行测试|开始 review|进行代码审查)[？?]?$)
+                              - cell:
+                                - generic:
+                                  - generic: "[运行测试]"
+                                  - generic: "[跳过测试]"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+                            - row:
+                              - cell:
+                                - switch [checked]
+                              - cell:
+                                - generic:
+                                  - generic: 方案确认与选择
+                                  - generic: 系统内置
+                              - cell: (请确认是否按(?:该|此)方案|是否同意该方案|按此方案执行吗[？?]?$)
+                              - cell:
+                                - generic:
+                                  - generic: "[同意按此方案执行]"
+                              - cell:
+                                - generic:
+                                  - button:
+                                    - img
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 安全和免责声明
+                    - paragraph: 重置安全警告和入门流程的确认。
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: 入门流程
+                      - paragraph: 重置入门流程。
+                    - button: 重置
+  - menu "System" [active] [ref=e934]:
+    - menuitem "Light" [ref=e935] [cursor=pointer]:
+      - generic [ref=e936]: Light
+    - menuitem "Dark" [ref=e937] [cursor=pointer]:
+      - generic [ref=e938]: Dark
+    - menuitem "System" [ref=e939] [cursor=pointer]:
+      - generic [ref=e940]: System

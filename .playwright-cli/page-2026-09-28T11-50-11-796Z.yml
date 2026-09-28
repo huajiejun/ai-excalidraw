@@ -1,0 +1,697 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e5]:
+      - paragraph [ref=e7]: Create Workspace
+      - generic [ref=e8]:
+        - button "Hide Left Sidebar" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+        - button "Toggle Chat Panel" [disabled] [ref=e12]:
+          - img [ref=e13] [cursor=pointer]
+        - button "Hide Right Sidebar" [ref=e15] [cursor=pointer]:
+          - img [ref=e16]
+        - button "Open Command Bar" [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+        - button "Give Feedback" [ref=e22] [cursor=pointer]:
+          - img [ref=e23]
+        - button "Settings" [ref=e25] [cursor=pointer]:
+          - img [ref=e26]
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - paragraph [ref=e30]: Local
+        - button "Local workspaces" [ref=e32] [cursor=pointer]:
+          - img [ref=e33]
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: Remote
+        - button "Pair a remote device" [ref=e38] [cursor=pointer]:
+          - img [ref=e39]
+      - generic [ref=e41]:
+        - paragraph [ref=e42]: Projects
+        - button "登录以查看项目" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - button "知识库" [ref=e49] [cursor=pointer]:
+            - img [ref=e50]
+          - button "Agent 留言板" [ref=e52] [cursor=pointer]:
+            - img [ref=e53]
+          - button "在线" [ref=e55] [cursor=pointer]
+        - button "Sign in" [ref=e56] [cursor=pointer]:
+          - img [ref=e57]
+        - paragraph [ref=e59]: v0.1.44
+    - generic [ref=e62]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e68]:
+            - generic [ref=e69]: 工作区
+            - generic [ref=e70]:
+              - button [ref=e71] [cursor=pointer]:
+                - img [ref=e72]
+              - button [ref=e74] [cursor=pointer]:
+                - img [ref=e75]
+          - generic [ref=e132]:
+            - textbox "搜索..." [ref=e135]
+            - generic [ref=e137]:
+              - button "工作区排序" [ref=e138] [cursor=pointer]:
+                - img [ref=e139]
+              - button "筛选工作区" [ref=e141] [cursor=pointer]:
+                - img [ref=e142]
+        - generic [ref=e78]:
+          - generic [ref=e144]:
+            - button "需要注意" [ref=e146] [cursor=pointer]:
+              - generic [ref=e147]: 需要注意
+              - img [ref=e149]
+            - generic [ref=e152]:
+              - button "时间分割线验证2 1h ago" [ref=e154] [cursor=pointer]:
+                - generic [ref=e156]: 时间分割线验证2
+                - generic [ref=e157]:
+                  - img [ref=e158]
+                  - generic [ref=e160]: 1h ago
+              - generic [ref=e162]:
+                - button "知识库" [ref=e163] [cursor=pointer]:
+                  - img [ref=e164]
+                - button "生命周期时间线" [ref=e167] [cursor=pointer]:
+                  - img [ref=e168]
+                - button "更多操作" [ref=e171] [cursor=pointer]:
+                  - img [ref=e172]
+          - generic [ref=e174]:
+            - button "运行中" [ref=e176] [cursor=pointer]:
+              - generic [ref=e177]: 运行中
+              - img [ref=e179]
+            - generic [ref=e182]: 没有工作区
+          - generic [ref=e183]:
+            - button "空闲" [ref=e185] [cursor=pointer]:
+              - generic [ref=e186]: 空闲
+              - img [ref=e188]
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - button "时间分割线验证2 38m ago" [ref=e443] [cursor=pointer]:
+                  - generic [ref=e195]: 时间分割线验证2
+                  - generic [ref=e197]: 38m ago
+                - generic [ref=e199]:
+                  - button "知识库" [ref=e200] [cursor=pointer]:
+                    - img [ref=e201]
+                  - button "生命周期时间线" [ref=e204] [cursor=pointer]:
+                    - img [ref=e205]
+                  - button "更多操作" [ref=e208] [cursor=pointer]:
+                    - img [ref=e209]
+              - generic [ref=e211]:
+                - button "时间分割线验证 1h ago" [ref=e213] [cursor=pointer]:
+                  - generic [ref=e215]: 时间分割线验证
+                  - generic [ref=e217]: 1h ago
+                - generic [ref=e219]:
+                  - button "知识库" [ref=e220] [cursor=pointer]:
+                    - img [ref=e221]
+                  - button "生命周期时间线" [ref=e224] [cursor=pointer]:
+                    - img [ref=e225]
+                  - button "更多操作" [ref=e228] [cursor=pointer]:
+                    - img [ref=e229]
+              - generic [ref=e231]:
+                - button "请只回复：ok 11d ago" [ref=e233] [cursor=pointer]:
+                  - generic [ref=e235]: 请只回复：ok
+                  - generic [ref=e237]: 11d ago
+                - generic [ref=e239]:
+                  - button "知识库" [ref=e240] [cursor=pointer]:
+                    - img [ref=e241]
+                  - button "生命周期时间线" [ref=e244] [cursor=pointer]:
+                    - img [ref=e245]
+                  - button "更多操作" [ref=e248] [cursor=pointer]:
+                    - img [ref=e249]
+              - generic [ref=e251]:
+                - button "请只回复两个字：好的 11d ago" [ref=e253] [cursor=pointer]:
+                  - generic [ref=e255]: 请只回复两个字：好的
+                  - generic [ref=e257]: 11d ago
+                - generic [ref=e259]:
+                  - button "知识库" [ref=e260] [cursor=pointer]:
+                    - img [ref=e261]
+                  - button "生命周期时间线" [ref=e264] [cursor=pointer]:
+                    - img [ref=e265]
+                  - button "更多操作" [ref=e268] [cursor=pointer]:
+                    - img [ref=e269]
+              - generic [ref=e271]:
+                - button "vk shell P1 验证 14d ago" [ref=e273] [cursor=pointer]:
+                  - generic [ref=e275]: vk shell P1 验证
+                  - generic [ref=e277]: 14d ago
+                - generic [ref=e279]:
+                  - button "知识库" [ref=e280] [cursor=pointer]:
+                    - img [ref=e281]
+                  - button "生命周期时间线" [ref=e284] [cursor=pointer]:
+                    - img [ref=e285]
+                  - button "更多操作" [ref=e288] [cursor=pointer]:
+                    - img [ref=e289]
+              - generic [ref=e291]:
+                - button "给我随机生成一个markdown文件，我要验证marddown查看器的效果 40d ago" [ref=e293] [cursor=pointer]:
+                  - generic [ref=e295]: 给我随机生成一个markdown文件，我要验证marddown查看器的效果
+                  - generic [ref=e297]: 40d ago
+                - generic [ref=e299]:
+                  - button "知识库" [ref=e300] [cursor=pointer]:
+                    - img [ref=e301]
+                  - button "生命周期时间线" [ref=e304] [cursor=pointer]:
+                    - img [ref=e305]
+                  - button "更多操作" [ref=e308] [cursor=pointer]:
+                    - img [ref=e309]
+              - generic [ref=e311]:
+                - button "hi 40d ago" [ref=e313] [cursor=pointer]:
+                  - generic [ref=e315]: hi
+                  - generic [ref=e317]: 40d ago
+                - generic [ref=e319]:
+                  - button "知识库" [ref=e320] [cursor=pointer]:
+                    - img [ref=e321]
+                  - button "生命周期时间线" [ref=e324] [cursor=pointer]:
+                    - img [ref=e325]
+                  - button "更多操作" [ref=e328] [cursor=pointer]:
+                    - img [ref=e329]
+              - generic [ref=e331]:
+                - button "你是谁，我想统计一下用量 46d ago" [ref=e333] [cursor=pointer]:
+                  - generic [ref=e335]: 你是谁，我想统计一下用量
+                  - generic [ref=e337]: 46d ago
+                - generic [ref=e339]:
+                  - button "知识库" [ref=e340] [cursor=pointer]:
+                    - img [ref=e341]
+                  - button "生命周期时间线" [ref=e344] [cursor=pointer]:
+                    - img [ref=e345]
+                  - button "更多操作" [ref=e348] [cursor=pointer]:
+                    - img [ref=e349]
+              - generic [ref=e351]:
+                - button "你是谁 89d ago" [ref=e353] [cursor=pointer]:
+                  - generic [ref=e355]: 你是谁
+                  - generic [ref=e357]: 89d ago
+                - generic [ref=e359]:
+                  - button "知识库" [ref=e360] [cursor=pointer]:
+                    - img [ref=e361]
+                  - button "生命周期时间线" [ref=e364] [cursor=pointer]:
+                    - img [ref=e365]
+                  - button "更多操作" [ref=e368] [cursor=pointer]:
+                    - img [ref=e369]
+              - generic [ref=e371]:
+                - button "测试hi 98d ago" [ref=e373] [cursor=pointer]:
+                  - generic [ref=e375]: 测试hi
+                  - generic [ref=e377]: 98d ago
+                - generic [ref=e379]:
+                  - button "知识库" [ref=e380] [cursor=pointer]:
+                    - img [ref=e381]
+                  - button "生命周期时间线" [ref=e384] [cursor=pointer]:
+                    - img [ref=e385]
+                  - button "更多操作" [ref=e388] [cursor=pointer]:
+                    - img [ref=e389]
+              - generic [ref=e391]:
+                - button "新的语音接口 119d ago" [ref=e393] [cursor=pointer]:
+                  - generic [ref=e395]: 新的语音接口
+                  - generic [ref=e397]: 119d ago
+                - generic [ref=e399]:
+                  - button "知识库" [ref=e400] [cursor=pointer]:
+                    - img [ref=e401]
+                  - button "生命周期时间线" [ref=e404] [cursor=pointer]:
+                    - img [ref=e405]
+                  - button "更多操作" [ref=e408] [cursor=pointer]:
+                    - img [ref=e409]
+              - generic [ref=e411]:
+                - button "工作区排序规则 162d ago" [ref=e413] [cursor=pointer]:
+                  - generic [ref=e415]: 工作区排序规则
+                  - generic [ref=e416]:
+                    - img [ref=e417]
+                    - generic [ref=e419]: 162d ago
+                - generic [ref=e421]:
+                  - button "知识库" [ref=e422] [cursor=pointer]:
+                    - img [ref=e423]
+                  - button "生命周期时间线" [ref=e426] [cursor=pointer]:
+                    - img [ref=e427]
+                  - button "更多操作" [ref=e430] [cursor=pointer]:
+                    - img [ref=e431]
+        - button "主工作区" [ref=e436] [cursor=pointer]:
+          - generic [ref=e437]: 主工作区
+          - img [ref=e439]
+        - button "查看归档 50" [ref=e441] [cursor=pointer]:
+          - img [ref=e84]
+          - generic [ref=e86]: 查看归档
+          - generic [ref=e87]: "50"
+      - generic [ref=e95]:
+        - heading "你想做什么工作？" [level=2] [ref=e96]
+        - generic [ref=e97]:
+          - button "Choose File" [ref=e98]
+          - generic [ref=e100]:
+            - img "Claude Code" [ref=e101]
+            - button "Claude Code" [ref=e102] [cursor=pointer]:
+              - generic [ref=e103]: Claude Code
+              - img [ref=e104]
+          - generic [ref=e106]:
+            - generic [ref=e108]:
+              - textbox "Markdown editor" [ref=e109]
+              - generic: Describe the task...
+            - generic [ref=e110]:
+              - generic [ref=e111]:
+                - button [ref=e122] [cursor=pointer]:
+                  - img [ref=e123]
+                - button "Opus · High" [ref=e125] [cursor=pointer]:
+                  - generic [ref=e126]: Opus · High
+                  - img [ref=e127]
+                - button [ref=e129] [cursor=pointer]:
+                  - img [ref=e130]
+                - button "附加文件" [ref=e116] [cursor=pointer]:
+                  - img [ref=e117]
+                - button "vk-shell-test-repo · master" [ref=e119] [cursor=pointer]
+              - button "创建" [disabled] [ref=e121]
+  - generic:
+    - generic:
+      - generic:
+        - generic: Organization
+        - button:
+          - img
+      - button "Workspaces":
+        - img
+        - text: Workspaces
+      - generic:
+        - generic:
+          - img
+          - paragraph: Kanban Boards
+          - paragraph: Sign in to organise your coding agents with kanban boards.
+          - generic:
+            - button "Sign in"
+  - listbox "Typeahead menu"
+  - listbox "Typeahead menu"
+  - generic [ref=e446]:
+    - generic [ref=e447]:
+      - heading "设置" [level=2] [ref=e449]
+      - navigation [ref=e450]:
+        - generic [ref=e451]:
+          - generic [ref=e453]: Machine Settings
+          - button "This machine" [ref=e455] [cursor=pointer]:
+            - generic [ref=e456]: This machine
+            - img [ref=e457]
+          - generic [ref=e459]:
+            - button "常规" [ref=e460] [cursor=pointer]:
+              - img [ref=e461]
+              - generic [ref=e463]: 常规
+            - button "仓库" [ref=e464] [cursor=pointer]:
+              - img [ref=e465]
+              - generic [ref=e467]: 仓库
+            - button "代理" [ref=e468] [cursor=pointer]:
+              - img [ref=e469]
+              - generic [ref=e471]: 代理
+            - button "MCP 服务器" [ref=e472] [cursor=pointer]:
+              - img [ref=e473]
+              - generic [ref=e475]: MCP 服务器
+            - button "Notion 集成" [ref=e476] [cursor=pointer]:
+              - img [ref=e477]
+              - generic [ref=e479]: Notion 集成
+            - button "存储空间" [ref=e480] [cursor=pointer]:
+              - img [ref=e481]
+              - generic [ref=e483]: 存储空间
+            - button "快捷回复" [ref=e484] [cursor=pointer]:
+              - img [ref=e485]
+              - generic [ref=e487]: 快捷回复
+            - button "自定义脚本" [ref=e488] [cursor=pointer]:
+              - img [ref=e489]
+              - generic [ref=e491]: 自定义脚本
+        - generic [ref=e492]:
+          - generic [ref=e494]: Account Settings
+          - generic [ref=e495]:
+            - button "组织设置" [ref=e496] [cursor=pointer]:
+              - img [ref=e497]
+              - generic [ref=e499]: 组织设置
+            - button "项目" [ref=e500] [cursor=pointer]:
+              - img [ref=e501]
+              - generic [ref=e503]: 项目
+            - button "Remote Access" [ref=e504] [cursor=pointer]:
+              - img [ref=e505]
+              - generic [ref=e507]: Remote Access
+    - generic [ref=e510]:
+      - generic [ref=e511]:
+        - heading "常规" [level=2] [ref=e512]
+        - button "关闭" [ref=e513] [cursor=pointer]:
+          - img [ref=e514]
+          - generic [ref=e516]: 关闭
+      - generic [ref=e517]:
+        - generic [ref=e518]:
+          - generic [ref=e520]:
+            - heading "外观" [level=3] [ref=e521]
+            - paragraph [ref=e522]: 自定义应用程序的外观和感觉。
+          - generic [ref=e523]:
+            - generic [ref=e524]:
+              - text: 主题
+              - button "Dark" [active] [ref=e941] [cursor=pointer]:
+                - generic [ref=e526]: Dark
+                - img [ref=e527]
+              - paragraph [ref=e529]: 选择您喜欢的配色方案。
+            - generic [ref=e530]:
+              - text: 语言
+              - button "浏览器默认" [ref=e531] [cursor=pointer]:
+                - generic [ref=e532]: 浏览器默认
+                - img [ref=e533]
+              - paragraph [ref=e535]: 选择您喜欢的语言。浏览器默认将跟随您的系统语言。
+            - generic [ref=e536]:
+              - text: 侧边栏项目显示上限
+              - button "5 个（默认）" [ref=e537] [cursor=pointer]:
+                - generic [ref=e538]: 5 个（默认）
+                - img [ref=e539]
+              - paragraph [ref=e541]: 超过上限的项目会折叠在左侧栏的"更多"按钮后面。可拖拽排序来控制哪些项目保持可见。
+        - generic [ref=e542]:
+          - generic [ref=e544]:
+            - heading "编辑器" [level=3] [ref=e545]
+            - paragraph [ref=e546]: 配置您的代码编辑体验。
+          - generic [ref=e547]:
+            - generic [ref=e548]:
+              - text: 编辑器类型
+              - button "Vs Code" [ref=e549] [cursor=pointer]:
+                - generic [ref=e550]: Vs Code
+                - img [ref=e551]
+              - paragraph [ref=e553]: 选择您喜欢的代码编辑器界面。
+            - generic [ref=e554]:
+              - text: 远程 SSH 主机（可选）
+              - textbox "例如：主机名或 IP 地址" [ref=e555]
+              - paragraph [ref=e556]: 如果 Vibe Kanban 在远程服务器上运行，请设置此项。设置后，点击在编辑器中打开将生成 URL 以通过 SSH 打开编辑器，而不是执行本地命令。
+            - generic [ref=e557]:
+              - checkbox "Auto-install VS Code Extension" [checked] [ref=e558]
+              - generic [ref=e559]:
+                - text: Auto-install VS Code Extension
+                - paragraph [ref=e560]: Automatically install the Vibe Kanban extension when opening a project in VS Code or Cursor. This runs in the background and has no effect if the extension is already installed.
+        - generic [ref=e561]:
+          - generic [ref=e563]:
+            - heading "默认编码代理" [level=3] [ref=e564]
+            - paragraph [ref=e565]: 选择任务的默认编码代理。
+          - generic [ref=e566]:
+            - generic [ref=e567]:
+              - text: 默认代理配置
+              - generic [ref=e568]:
+                - button "Claude Code" [ref=e569] [cursor=pointer]:
+                  - generic [ref=e570]: Claude Code
+                  - img [ref=e571]
+                - button "默认" [ref=e573] [cursor=pointer]:
+                  - generic [ref=e574]: 默认
+                  - img [ref=e575]
+              - paragraph [ref=e577]: 选择创建任务尝试时使用的默认代理配置。
+            - generic [ref=e578]:
+              - text: UI 设计模型
+              - button "跟随智能体默认" [ref=e579] [cursor=pointer]:
+                - generic [ref=e580]: 跟随智能体默认
+                - img [ref=e581]
+              - paragraph [ref=e583]: 任务 UI 设计面板首次运行使用的模型；选择「跟随智能体默认」则使用代理/预设的默认模型。
+        - generic [ref=e584]:
+          - generic [ref=e586]:
+            - heading "Git" [level=3] [ref=e587]
+            - paragraph [ref=e588]: 配置 git 分支命名偏好
+          - generic [ref=e589]:
+            - generic [ref=e590]:
+              - text: 分支前缀
+              - textbox "vk" [ref=e591]
+              - paragraph [ref=e592]:
+                - text: 自动生成的分支名称的前缀。留空表示无前缀。 预览：
+                - code [ref=e593]: vk/1a2b-task-name
+            - generic [ref=e594]:
+              - text: 工作区目录
+              - generic [ref=e595]:
+                - textbox "~/" [ref=e597]
+                - button "浏览" [ref=e598] [cursor=pointer]:
+                  - img [ref=e599]
+                  - text: 浏览
+              - paragraph [ref=e601]: 工作区将在此路径内的 .vibe-kanban-workspaces 子目录中创建。留空以使用系统默认值。更改需要重启应用程序。
+        - generic [ref=e602]:
+          - generic [ref=e604]:
+            - heading "拉取请求" [level=3] [ref=e605]
+            - paragraph [ref=e606]: 配置PR创建行为
+          - generic [ref=e607]:
+            - generic [ref=e608]:
+              - checkbox "默认自动生成PR描述" [checked] [ref=e609]
+              - generic [ref=e610]:
+                - text: 默认自动生成PR描述
+                - paragraph [ref=e611]: 启用后，AI代理将在创建PR后自动更新标题和描述。
+            - generic [ref=e612]:
+              - checkbox "使用自定义提示" [ref=e613]
+              - generic [ref=e614]: 使用自定义提示
+            - generic [ref=e615]:
+              - textbox [disabled] [ref=e616]: "Update the PR that was just created with a better title and description. The PR number is #{pr_number} and the URL is {pr_url}. Analyze the changes in this branch and write: 1. A concise, descriptive title that summarizes the changes, postfixed with \"(Vibe Kanban)\" 2. A detailed description that explains: - What changes were made - Why they were made (based on the task context) - Any important implementation details - At the end, include a note: \"This PR was written using [Vibe Kanban](https://github.com/huajiejun/vibe-kanban-hua)\" IMPORTANT: Preserve any images or attachments already referenced in the current PR body. You may reorganize the description, but never remove or break those image/attachment references — reviewers rely on them. Use the appropriate CLI tool to update the PR (gh pr edit for GitHub, az repos pr update for Azure DevOps)."
+              - paragraph [ref=e617]: "生成PR描述时AI代理使用的自定义提示。使用{pr_number}和{pr_url}作为占位符。"
+        - generic [ref=e618]:
+          - generic [ref=e620]:
+            - heading "提交" [level=3] [ref=e621]
+            - paragraph [ref=e622]: 配置任务尝试的提交行为
+          - generic [ref=e623]:
+            - generic [ref=e624]:
+              - checkbox "提交提醒" [checked] [ref=e625]
+              - generic [ref=e626]:
+                - text: 提交提醒
+                - paragraph [ref=e627]: 提示支持的代理在停止前提交更改。
+            - generic [ref=e628]:
+              - checkbox "使用自定义提示" [ref=e629]
+              - generic [ref=e630]: 使用自定义提示
+            - generic [ref=e631]:
+              - textbox [disabled] [ref=e632]: There are uncommitted changes. Please stage and commit them now with a descriptive commit message.
+              - paragraph [ref=e633]: 提交提醒的自定义提示。git 状态将自动追加。
+        - generic [ref=e634]:
+          - generic [ref=e636]:
+            - heading "通知" [level=3] [ref=e637]
+            - paragraph [ref=e638]: 控制何时以及如何接收通知。
+          - generic [ref=e639]:
+            - generic [ref=e640]:
+              - checkbox "声音通知" [checked] [ref=e641]
+              - generic [ref=e642]:
+                - text: 声音通知
+                - paragraph [ref=e643]: 任务尝试完成运行时播放声音。
+            - generic [ref=e644]:
+              - text: 声音
+              - generic [ref=e645]:
+                - button "Cow Mooing" [ref=e647] [cursor=pointer]:
+                  - generic [ref=e648]: Cow Mooing
+                  - img [ref=e649]
+                - button "Preview sound" [ref=e651] [cursor=pointer]:
+                  - img [ref=e652]
+              - paragraph [ref=e654]: 选择任务完成时播放的声音。点击音量按钮预览。
+            - generic [ref=e655]:
+              - checkbox "推送通知" [checked] [ref=e656]
+              - generic [ref=e657]:
+                - text: 推送通知
+                - paragraph [ref=e658]: 任务尝试完成运行时显示系统通知。
+        - generic [ref=e659]:
+          - generic [ref=e661]:
+            - heading "消息输入" [level=3] [ref=e662]
+            - paragraph [ref=e663]: 配置在聊天输入中发送消息的方式。
+          - generic [ref=e665]:
+            - text: 发送消息快捷键
+            - button "⌘+Enter" [ref=e666] [cursor=pointer]:
+              - generic [ref=e667]: ⌘+Enter
+              - img [ref=e668]
+            - paragraph [ref=e670]: 选择发送消息的键盘快捷键。
+        - generic [ref=e671]:
+          - generic [ref=e673]:
+            - heading "隐私" [level=3] [ref=e674]
+            - paragraph [ref=e675]: 通过共享匿名使用数据帮助改进 Vibe-Kanban。
+          - generic [ref=e677]:
+            - checkbox "启用遥测" [checked] [ref=e678]
+            - generic [ref=e679]:
+              - text: 启用遥测
+              - paragraph [ref=e680]: 启用匿名使用事件跟踪以帮助改进应用程序。不会收集提示或项目信息。
+        - generic [ref=e681]:
+          - generic [ref=e683]:
+            - heading "标签" [level=3] [ref=e684]
+            - paragraph [ref=e685]: 创建可使用 @tag_name 插入到任务描述中的可重用文本片段。
+          - generic [ref=e687]:
+            - generic [ref=e688]:
+              - heading "任务标签" [level=3] [ref=e689]
+              - button "添加标签" [ref=e690] [cursor=pointer]:
+                - text: 添加标签
+                - img [ref=e691]
+            - table [ref=e695]:
+              - rowgroup [ref=e696]:
+                - row "标签名称 内容 操作" [ref=e697]:
+                  - columnheader "标签名称" [ref=e698]
+                  - columnheader "内容" [ref=e699]
+                  - columnheader "操作" [ref=e700]
+              - rowgroup [ref=e701]:
+                - row [ref=e702]:
+                  - cell "@add_unit_tests" [ref=e703]
+                  - cell [ref=e704]:
+                    - generic [ref=e705]
+                  - cell "edit delete" [ref=e706]:
+                    - generic [ref=e707]:
+                      - button "edit" [ref=e708] [cursor=pointer]:
+                        - img [ref=e709]
+                      - button "delete" [ref=e711] [cursor=pointer]:
+                        - img [ref=e712]
+                - row [ref=e714]:
+                  - cell "@bug_analysis" [ref=e715]
+                  - cell [ref=e716]:
+                    - generic [ref=e717]
+                  - cell "edit delete" [ref=e718]:
+                    - generic [ref=e719]:
+                      - button "edit" [ref=e720] [cursor=pointer]:
+                        - img [ref=e721]
+                      - button "delete" [ref=e723] [cursor=pointer]:
+                        - img [ref=e724]
+                - row [ref=e726]:
+                  - cell "@code_refactoring" [ref=e727]
+                  - cell [ref=e728]:
+                    - generic [ref=e729]
+                  - cell "edit delete" [ref=e730]:
+                    - generic [ref=e731]:
+                      - button "edit" [ref=e732] [cursor=pointer]:
+                        - img [ref=e733]
+                      - button "delete" [ref=e735] [cursor=pointer]:
+                        - img [ref=e736]
+                - row "@karpathy 请按照 Karpathy Guidelines 的 Simplicity First 和 Surgical Changes 原则 edit delete" [ref=e738]:
+                  - cell "@karpathy" [ref=e739]
+                  - cell "请按照 Karpathy Guidelines 的 Simplicity First 和 Surgical Changes 原则" [ref=e740]:
+                    - generic "请按照 Karpathy Guidelines 的 Simplicity First 和 Surgical Changes 原则" [ref=e741]
+                  - cell "edit delete" [ref=e742]:
+                    - generic [ref=e743]:
+                      - button "edit" [ref=e744] [cursor=pointer]:
+                        - img [ref=e745]
+                      - button "delete" [ref=e747] [cursor=pointer]:
+                        - img [ref=e748]
+                - row "@superpowers初始任务 使用技能：using-superpowers、brainstorming、writing-plans。先读取这些技能说明和仓库里的 CLAUDE.md edit delete" [ref=e750]:
+                  - cell "@superpowers初始任务" [ref=e751]
+                  - cell "使用技能：using-superpowers、brainstorming、writing-plans。先读取这些技能说明和仓库里的 CLAUDE.md" [ref=e752]:
+                    - generic "使用技能：using-superpowers、brainstorming、writing-plans。先读取这些技能说明和仓库里的 CLAUDE.md" [ref=e753]
+                  - cell "edit delete" [ref=e754]:
+                    - generic [ref=e755]:
+                      - button "edit" [ref=e756] [cursor=pointer]:
+                        - img [ref=e757]
+                      - button "delete" [ref=e759] [cursor=pointer]:
+                        - img [ref=e760]
+                - row "@superpowers常用修问题 继续按 using-superpowers、systematic-debugging、test-driven-development 处理 edit delete" [ref=e762]:
+                  - cell "@superpowers常用修问题" [ref=e763]
+                  - cell "继续按 using-superpowers、systematic-debugging、test-driven-development 处理" [ref=e764]:
+                    - generic "继续按 using-superpowers、systematic-debugging、test-driven-development 处理" [ref=e765]
+                  - cell "edit delete" [ref=e766]:
+                    - generic [ref=e767]:
+                      - button "edit" [ref=e768] [cursor=pointer]:
+                        - img [ref=e769]
+                      - button "delete" [ref=e771] [cursor=pointer]:
+                        - img [ref=e772]
+                - 'row "@使用SuperPower开发SPEC模板 ### 背景介绍 因为什么原因，遇到了什么问题… ### 需求分析 使用/superpowers: brainstorm技能分析需求： 新做一个模块来解决什么问题，功能需要包含 ### 编写执行计划 使用/superpowers:**writing-plan技能编写执行计划** ### 执行流程 1. /superpowers:**executing-plans 执行计划** 2. 使用**subagent-driven-development 技能开启当前任务** 3. 使用/superpowers:**test-driven-development 技能进行TDD测试驱动开发模式进行开发编程** ### 代码审查 1. 使用 /code-reviewer 审查代码 ### 验收清单 - [ ] 功能开发编译通过，项目正常启动 - [ ] 代码审查通过，无P0级别代码问题 - [ ] 测试覆盖率 > 80% - [ ] 文档更新 ### **Ralph-Loop 配置** - max-iterations: 15 - completion-promise: DEVELOP COMPLETE edit delete" [ref=e774]':
+                  - cell "@使用SuperPower开发SPEC模板" [ref=e775]
+                  - 'cell "### 背景介绍 因为什么原因，遇到了什么问题… ### 需求分析 使用/superpowers: brainstorm技能分析需求： 新做一个模块来解决什么问题，功能需要包含 ### 编写执行计划 使用/superpowers:**writing-plan技能编写执行计划** ### 执行流程 1. /superpowers:**executing-plans 执行计划** 2. 使用**subagent-driven-development 技能开启当前任务** 3. 使用/superpowers:**test-driven-development 技能进行TDD测试驱动开发模式进行开发编程** ### 代码审查 1. 使用 /code-reviewer 审查代码 ### 验收清单 - [ ] 功能开发编译通过，项目正常启动 - [ ] 代码审查通过，无P0级别代码问题 - [ ] 测试覆盖率 > 80% - [ ] 文档更新 ### **Ralph-Loop 配置** - max-iterations: 15 - completion-promise: DEVELOP COMPLETE" [ref=e776]':
+                    - 'generic "### 背景介绍 因为什么原因，遇到了什么问题… ### 需求分析 使用/superpowers: brainstorm技能分析需求： 新做一个模块来解决什么问题，功能需要包含 ### 编写执行计划 使用/superpowers:**writing-plan技能编写执行计划** ### 执行流程 1. /superpowers:**executing-plans 执行计划** 2. 使用**subagent-driven-development 技能开启当前任务** 3. 使用/superpowers:**test-driven-development 技能进行TDD测试驱动开发模式进行开发编程** ### 代码审查 1. 使用 /code-reviewer 审查代码 ### 验收清单 - [ ] 功能开发编译通过，项目正常启动 - [ ] 代码审查通过，无P0级别代码问题 - [ ] 测试覆盖率 > 80% - [ ] 文档更新 ### **Ralph-Loop 配置** - max-iterations: 15 - completion-promise: DEVELOP COMPLETE" [ref=e777]'
+                  - cell "edit delete" [ref=e778]:
+                    - generic [ref=e779]:
+                      - button "edit" [ref=e780] [cursor=pointer]:
+                        - img [ref=e781]
+                      - button "delete" [ref=e783] [cursor=pointer]:
+                        - img [ref=e784]
+                - row "@复杂决策 先不要回答我的问题。请先执行以下操作： 1. 指出我在这个问题中隐含的假设； 2. 告诉我哪些关键信息缺失会显著改变你的答案； 3. 告诉我人们在处理这类问题时最常犯的一个错误。 最后，请向我提一个能让你最终答案真正产生价值的问题。 等我回答后，你再给出最终输出 edit delete" [ref=e786]:
+                  - cell "@复杂决策" [ref=e787]
+                  - cell "先不要回答我的问题。请先执行以下操作： 1. 指出我在这个问题中隐含的假设； 2. 告诉我哪些关键信息缺失会显著改变你的答案； 3. 告诉我人们在处理这类问题时最常犯的一个错误。 最后，请向我提一个能让你最终答案真正产生价值的问题。 等我回答后，你再给出最终输出" [ref=e788]:
+                    - generic "先不要回答我的问题。请先执行以下操作： 1. 指出我在这个问题中隐含的假设； 2. 告诉我哪些关键信息缺失会显著改变你的答案； 3. 告诉我人们在处理这类问题时最常犯的一个错误。 最后，请向我提一个能让你最终答案真正产生价值的问题。 等我回答后，你再给出最终输出" [ref=e789]
+                  - cell "edit delete" [ref=e790]:
+                    - generic [ref=e791]:
+                      - button "edit" [ref=e792] [cursor=pointer]:
+                        - img [ref=e793]
+                      - button "delete" [ref=e795] [cursor=pointer]:
+                        - img [ref=e796]
+                - row "@持续开发 /ralph-loop 实现一个xxxx功能 要求： 1. 使用 TDD 方式开发（先写测试再写实现） 2. 遇到 bug 使用 systematic-debugging 排查 3. 完成后运行 verification-before-completion 验证 4. 测试覆盖率 > 80% 完成标准： - 所有 CRUD 接口可用 - 输入验证到位 - 所有测试通过 - 至少完成项目启动E2E验收 - 输出 <promise>COMPLETE</promise> 卡住时（15 次迭代后仍未完成）： - 记录阻塞原因 - 列出已尝试的方案 - 建议替代方案 edit delete" [ref=e798]:
+                  - cell "@持续开发" [ref=e799]
+                  - cell "/ralph-loop 实现一个xxxx功能 要求： 1. 使用 TDD 方式开发（先写测试再写实现） 2. 遇到 bug 使用 systematic-debugging 排查 3. 完成后运行 verification-before-completion 验证 4. 测试覆盖率 > 80% 完成标准： - 所有 CRUD 接口可用 - 输入验证到位 - 所有测试通过 - 至少完成项目启动E2E验收 - 输出 <promise>COMPLETE</promise> 卡住时（15 次迭代后仍未完成）： - 记录阻塞原因 - 列出已尝试的方案 - 建议替代方案" [ref=e800]:
+                    - generic "/ralph-loop 实现一个xxxx功能 要求： 1. 使用 TDD 方式开发（先写测试再写实现） 2. 遇到 bug 使用 systematic-debugging 排查 3. 完成后运行 verification-before-completion 验证 4. 测试覆盖率 > 80% 完成标准： - 所有 CRUD 接口可用 - 输入验证到位 - 所有测试通过 - 至少完成项目启动E2E验收 - 输出 <promise>COMPLETE</promise> 卡住时（15 次迭代后仍未完成）： - 记录阻塞原因 - 列出已尝试的方案 - 建议替代方案" [ref=e801]
+                  - cell "edit delete" [ref=e802]:
+                    - generic [ref=e803]:
+                      - button "edit" [ref=e804] [cursor=pointer]:
+                        - img [ref=e805]
+                      - button "delete" [ref=e807] [cursor=pointer]:
+                        - img [ref=e808]
+                - row "@收尾 1. 进行代码审查和基础业务逻辑回归 2. 整理文件，图片，按照约定的执行 3. 整理技术文档，归档基线内容 edit delete" [ref=e810]:
+                  - cell "@收尾" [ref=e811]
+                  - cell "1. 进行代码审查和基础业务逻辑回归 2. 整理文件，图片，按照约定的执行 3. 整理技术文档，归档基线内容" [ref=e812]:
+                    - generic "1. 进行代码审查和基础业务逻辑回归 2. 整理文件，图片，按照约定的执行 3. 整理技术文档，归档基线内容" [ref=e813]
+                  - cell "edit delete" [ref=e814]:
+                    - generic [ref=e815]:
+                      - button "edit" [ref=e816] [cursor=pointer]:
+                        - img [ref=e817]
+                      - button "delete" [ref=e819] [cursor=pointer]:
+                        - img [ref=e820]
+                - 'row "@添加单元测试 编写单元测试以提升代码覆盖率并确保可靠性。 # 测试检查清单 ## 单元测试 - [ ] 识别需要测试的函数/模块 - [ ] 运行覆盖率报告找出未测试的代码 - [ ] 列出需要测试的具体函数/方法 - [ ] 注意当前覆盖率百分比 ## 编写测试 - [ ] 测试正常路径（预期行为） - [ ] 测试边界情况（空输入、边界值） - [ ] 测试错误情况（无效输入、异常） - [ ] Mock 外部依赖 - [ ] 使用描述性的测试名称 ## 测试质量 - [ ] 每个测试只关注一个行为 - [ ] 测试可以独立运行 - [ ] 没有硬编码的值 - [ ] 使用清晰的断言验证行为 ## 需要覆盖的示例 - 正常输入 → 预期输出 - 空/null 输入 → 正确处理 - 无效输入 → 错误情况 - 边界值 → 边界情况行为 ## 目标 至少达到 80% 覆盖率 ## 交付物 1. 新的测试文件，包含全面的单元测试 2. 更新的覆盖率报告 3. 所有测试通过 edit delete" [ref=e822]':
+                  - cell "@添加单元测试" [ref=e823]
+                  - 'cell "编写单元测试以提升代码覆盖率并确保可靠性。 # 测试检查清单 ## 单元测试 - [ ] 识别需要测试的函数/模块 - [ ] 运行覆盖率报告找出未测试的代码 - [ ] 列出需要测试的具体函数/方法 - [ ] 注意当前覆盖率百分比 ## 编写测试 - [ ] 测试正常路径（预期行为） - [ ] 测试边界情况（空输入、边界值） - [ ] 测试错误情况（无效输入、异常） - [ ] Mock 外部依赖 - [ ] 使用描述性的测试名称 ## 测试质量 - [ ] 每个测试只关注一个行为 - [ ] 测试可以独立运行 - [ ] 没有硬编码的值 - [ ] 使用清晰的断言验证行为 ## 需要覆盖的示例 - 正常输入 → 预期输出 - 空/null 输入 → 正确处理 - 无效输入 → 错误情况 - 边界值 → 边界情况行为 ## 目标 至少达到 80% 覆盖率 ## 交付物 1. 新的测试文件，包含全面的单元测试 2. 更新的覆盖率报告 3. 所有测试通过" [ref=e824]':
+                    - 'generic "编写单元测试以提升代码覆盖率并确保可靠性。 # 测试检查清单 ## 单元测试 - [ ] 识别需要测试的函数/模块 - [ ] 运行覆盖率报告找出未测试的代码 - [ ] 列出需要测试的具体函数/方法 - [ ] 注意当前覆盖率百分比 ## 编写测试 - [ ] 测试正常路径（预期行为） - [ ] 测试边界情况（空输入、边界值） - [ ] 测试错误情况（无效输入、异常） - [ ] Mock 外部依赖 - [ ] 使用描述性的测试名称 ## 测试质量 - [ ] 每个测试只关注一个行为 - [ ] 测试可以独立运行 - [ ] 没有硬编码的值 - [ ] 使用清晰的断言验证行为 ## 需要覆盖的示例 - 正常输入 → 预期输出 - 空/null 输入 → 正确处理 - 无效输入 → 错误情况 - 边界值 → 边界情况行为 ## 目标 至少达到 80% 覆盖率 ## 交付物 1. 新的测试文件，包含全面的单元测试 2. 更新的覆盖率报告 3. 所有测试通过" [ref=e825]'
+                  - cell "edit delete" [ref=e826]:
+                    - generic [ref=e827]:
+                      - button "edit" [ref=e828] [cursor=pointer]:
+                        - img [ref=e829]
+                      - button "delete" [ref=e831] [cursor=pointer]:
+                        - img [ref=e832]
+        - generic [ref=e834]:
+          - generic [ref=e836]:
+            - heading "快捷回复规则" [level=3] [ref=e837]
+            - paragraph [ref=e838]: 配置关键词触发的预设快捷回复动作
+          - generic [ref=e840]:
+            - generic [ref=e841]:
+              - paragraph [ref=e842]: 当助手回复消息末尾匹配特定关键词或句式时，在输入框上方自动显示预设快捷回复按钮。
+              - button "添加规则" [ref=e843] [cursor=pointer]:
+                - text: 添加规则
+                - img [ref=e844]
+            - table [ref=e848]:
+              - rowgroup [ref=e849]:
+                - row "启用 规则名称 匹配模式 预设按钮 操作" [ref=e850]:
+                  - columnheader "启用" [ref=e851]
+                  - columnheader "规则名称" [ref=e852]
+                  - columnheader "匹配模式" [ref=e853]
+                  - columnheader "预设按钮" [ref=e854]
+                  - columnheader "操作" [ref=e855]
+              - rowgroup [ref=e856]:
+                - row "Toggle 确认执行计划 确认执行计划 系统内置 (计划已保存完成.*是否开始执行|是否开始执行[？?]?$) [开始执行] Edit rule" [ref=e857]:
+                  - cell "Toggle 确认执行计划" [ref=e858]:
+                    - switch "Toggle 确认执行计划" [checked] [ref=e859] [cursor=pointer]
+                  - cell "确认执行计划 系统内置" [ref=e860]:
+                    - generic [ref=e861]:
+                      - generic [ref=e862]: 确认执行计划
+                      - generic [ref=e863]: 系统内置
+                  - cell "(计划已保存完成.*是否开始执行|是否开始执行[？?]?$)" [ref=e864]
+                  - cell "[开始执行]" [ref=e865]:
+                    - 'generic "发送内容: 开始执行" [ref=e867]': "[开始执行]"
+                  - cell "Edit rule" [ref=e868]:
+                    - button "Edit rule" [ref=e870] [cursor=pointer]:
+                      - img [ref=e871]
+                - row "Toggle 自动继续 / 分步执行确认 自动继续 / 分步执行确认 系统内置 (是否继续(?:下一步|后续步骤|执行)?|是否继续[？?]?$|需要继续吗[？?]?$) [继续下一步] [暂停/查看详情] Edit rule" [ref=e873]:
+                  - cell "Toggle 自动继续 / 分步执行确认" [ref=e874]:
+                    - switch "Toggle 自动继续 / 分步执行确认" [checked] [ref=e875] [cursor=pointer]
+                  - cell "自动继续 / 分步执行确认 系统内置" [ref=e876]:
+                    - generic [ref=e877]:
+                      - generic [ref=e878]: 自动继续 / 分步执行确认
+                      - generic [ref=e879]: 系统内置
+                  - cell "(是否继续(?:下一步|后续步骤|执行)?|是否继续[？?]?$|需要继续吗[？?]?$)" [ref=e880]
+                  - cell "[继续下一步] [暂停/查看详情]" [ref=e881]:
+                    - generic [ref=e882]:
+                      - 'generic "发送内容: 继续" [ref=e883]': "[继续下一步]"
+                      - 'generic "发送内容: 先停一下，我确认一下" [ref=e884]': "[暂停/查看详情]"
+                  - cell "Edit rule" [ref=e885]:
+                    - button "Edit rule" [ref=e887] [cursor=pointer]:
+                      - img [ref=e888]
+                - row "Toggle 测试与代码审查 测试与代码审查 系统内置 (是否(?:现在|立即)?(?:运行测试|执行测试|开始 review|进行代码审查)[？?]?$) [运行测试] [跳过测试] Edit rule" [ref=e890]:
+                  - cell "Toggle 测试与代码审查" [ref=e891]:
+                    - switch "Toggle 测试与代码审查" [checked] [ref=e892] [cursor=pointer]
+                  - cell "测试与代码审查 系统内置" [ref=e893]:
+                    - generic [ref=e894]:
+                      - generic [ref=e895]: 测试与代码审查
+                      - generic [ref=e896]: 系统内置
+                  - cell "(是否(?:现在|立即)?(?:运行测试|执行测试|开始 review|进行代码审查)[？?]?$)" [ref=e897]
+                  - cell "[运行测试] [跳过测试]" [ref=e898]:
+                    - generic [ref=e899]:
+                      - 'generic "发送内容: 运行测试并确认结果" [ref=e900]': "[运行测试]"
+                      - 'generic "发送内容: 跳过测试直接继续" [ref=e901]': "[跳过测试]"
+                  - cell "Edit rule" [ref=e902]:
+                    - button "Edit rule" [ref=e904] [cursor=pointer]:
+                      - img [ref=e905]
+                - row "Toggle 方案确认与选择 方案确认与选择 系统内置 (请确认是否按(?:该|此)方案|是否同意该方案|按此方案执行吗[？?]?$) [同意按此方案执行] Edit rule" [ref=e907]:
+                  - cell "Toggle 方案确认与选择" [ref=e908]:
+                    - switch "Toggle 方案确认与选择" [checked] [ref=e909] [cursor=pointer]
+                  - cell "方案确认与选择 系统内置" [ref=e910]:
+                    - generic [ref=e911]:
+                      - generic [ref=e912]: 方案确认与选择
+                      - generic [ref=e913]: 系统内置
+                  - cell "(请确认是否按(?:该|此)方案|是否同意该方案|按此方案执行吗[？?]?$)" [ref=e914]
+                  - cell "[同意按此方案执行]" [ref=e915]:
+                    - 'generic "发送内容: 同意，按此方案执行" [ref=e917]': "[同意按此方案执行]"
+                  - cell "Edit rule" [ref=e918]:
+                    - button "Edit rule" [ref=e920] [cursor=pointer]:
+                      - img [ref=e921]
+        - generic [ref=e923]:
+          - generic [ref=e925]:
+            - heading "安全和免责声明" [level=3] [ref=e926]
+            - paragraph [ref=e927]: 重置安全警告和入门流程的确认。
+          - generic [ref=e929]:
+            - generic [ref=e930]:
+              - paragraph [ref=e931]: 入门流程
+              - paragraph [ref=e932]: 重置入门流程。
+            - button "重置" [ref=e933] [cursor=pointer]
+        - generic [ref=e943]:
+          - generic [ref=e944]: • 您有未保存的更改
+          - generic [ref=e945]:
+            - button "放弃" [ref=e946] [cursor=pointer]
+            - button "保存" [ref=e947] [cursor=pointer]
