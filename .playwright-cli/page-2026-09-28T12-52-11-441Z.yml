@@ -1,0 +1,386 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e5]:
+      - button "Archive" [ref=e7] [cursor=pointer]:
+        - img [ref=e8]
+      - generic [ref=e10]:
+        - paragraph [ref=e11]: vibe/b596
+        - button "Pi Session 详情" [ref=e13] [cursor=pointer]:
+          - img "Pi" [ref=e14]
+      - generic [ref=e16]:
+        - button "Hide Left Sidebar" [ref=e17] [cursor=pointer]:
+          - img [ref=e18]
+        - button "Toggle Chat Panel" [ref=e20] [cursor=pointer]:
+          - img [ref=e21]
+        - button "Toggle Changes Panel" [ref=e23] [cursor=pointer]:
+          - img [ref=e24]
+        - button "Toggle Logs Panel" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+        - button "Toggle Preview Panel" [ref=e29] [cursor=pointer]:
+          - img [ref=e30]
+        - button "Toggle Files Panel" [ref=e32] [cursor=pointer]:
+          - img [ref=e33]
+        - button "Toggle Todos Panel" [ref=e35] [cursor=pointer]:
+          - img [ref=e36]
+        - button "Toggle Documents Panel" [ref=e38] [cursor=pointer]:
+          - img [ref=e39]
+        - button "Toggle Messages Panel" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - button "Hide Right Sidebar" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+        - button "Open Command Bar" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+        - button "Give Feedback" [ref=e51] [cursor=pointer]:
+          - img [ref=e52]
+        - button "Settings" [ref=e54] [cursor=pointer]:
+          - img [ref=e55]
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - paragraph [ref=e59]: Local
+        - button "Local workspaces" [ref=e61] [cursor=pointer]:
+          - img [ref=e62]
+      - generic [ref=e64]:
+        - paragraph [ref=e65]: Remote
+        - button "Pair a remote device" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+      - generic [ref=e70]:
+        - paragraph [ref=e71]: Projects
+        - button "登录以查看项目" [ref=e73] [cursor=pointer]:
+          - img [ref=e74]
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - button "知识库" [ref=e78] [cursor=pointer]:
+            - img [ref=e79]
+          - button "Agent 留言板" [ref=e81] [cursor=pointer]:
+            - img [ref=e82]
+          - button "在线" [ref=e84] [cursor=pointer]
+        - button "Sign in" [ref=e85] [cursor=pointer]:
+          - img [ref=e86]
+        - paragraph [ref=e88]: v0.1.44
+    - generic [ref=e93]:
+      - generic [ref=e95]:
+        - generic [ref=e99]:
+          - generic [ref=e100]: 工作区
+          - generic [ref=e101]:
+            - button [ref=e102] [cursor=pointer]:
+              - img [ref=e103]
+            - button [ref=e105] [cursor=pointer]:
+              - img [ref=e106]
+        - img [ref=e111]
+        - button "查看归档 0" [ref=e114] [cursor=pointer]:
+          - img [ref=e115]
+          - generic [ref=e117]: 查看归档
+          - generic [ref=e118]: "0"
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - main [ref=e124]:
+            - img [ref=e129]
+            - generic [ref=e134]:
+              - button "Choose File" [ref=e135]
+              - generic [ref=e136]:
+                - button "0 个文件已更改+0-0" [ref=e138] [cursor=pointer]:
+                  - generic:
+                    - text: 0 个文件已更改
+                    - generic [ref=e139]:
+                      - generic [ref=e140]: "+0"
+                      - generic [ref=e141]: "-0"
+                - generic [ref=e142]:
+                  - button "拉取最新消息" [ref=e143] [cursor=pointer]:
+                    - img [ref=e144]
+                  - button "持续推进模式" [ref=e147] [cursor=pointer]:
+                    - img [ref=e148]
+                  - button "隐藏思考过程" [ref=e150] [cursor=pointer]:
+                    - img [ref=e151]
+                  - button "Go to previous message" [ref=e153] [cursor=pointer]:
+                    - img [ref=e154]
+                  - img "Pi" [ref=e156]
+                  - button "任务" [disabled] [ref=e158]:
+                    - img [ref=e159] [cursor=pointer]
+                  - img "上下文使用量" [ref=e161]:
+                    - img [ref=e162]
+                  - button "最新" [ref=e165] [cursor=pointer]:
+                    - generic [ref=e166]: 最新
+                    - img [ref=e167]
+              - generic [ref=e169]:
+                - generic [ref=e172]:
+                  - textbox "Markdown editor" [active] [ref=e173]
+                  - generic: Continue working on this task...
+                - generic [ref=e174]:
+                  - generic [ref=e175]:
+                    - button "加载中..." [disabled] [ref=e176]:
+                      - generic [ref=e177] [cursor=pointer]: 加载中...
+                      - img [ref=e178] [cursor=pointer]
+                    - button "附加文件" [ref=e180] [cursor=pointer]:
+                      - img [ref=e181]
+                    - generic [ref=e183]:
+                      - button "quick-reply-builtin-start" [ref=e184] [cursor=pointer]: 开始
+                      - button "quick-reply-builtin-fix" [ref=e185] [cursor=pointer]: 修复
+                      - button "quick-reply-builtin-continue" [ref=e186] [cursor=pointer]: 同意继续
+                      - button "more-quick-replies" [ref=e187] [cursor=pointer]:
+                        - img [ref=e188]
+                        - text: 更多
+                  - button "发送" [disabled] [ref=e191]
+            - generic [ref=e199]:
+              - generic [ref=e200]:
+                - button "Open in VS Code" [ref=e202] [cursor=pointer]:
+                  - img "VS Code" [ref=e203]
+                - button "复制路径" [ref=e205] [cursor=pointer]:
+                  - img [ref=e206]
+              - generic [ref=e209]:
+                - button "Start dev server" [ref=e211] [cursor=pointer]:
+                  - img [ref=e212]
+                - button "Run deploy script" [ref=e215] [cursor=pointer]:
+                  - img [ref=e216]
+                - button "Toggle Preview Panel" [ref=e219] [cursor=pointer]:
+                  - img [ref=e220]
+                - button "Toggle Changes Panel" [ref=e223] [cursor=pointer]:
+                  - img [ref=e224]
+                - button "Toggle Files Panel" [ref=e227] [cursor=pointer]:
+                  - img [ref=e228]
+                - button "项目自定义脚本" [ref=e231] [cursor=pointer]:
+                  - img [ref=e232]
+          - separator [ref=e234]
+          - generic [ref=e238]:
+            - generic [ref=e240]:
+              - generic [ref=e241]:
+                - button "Go back" [disabled] [ref=e242]:
+                  - img [ref=e243] [cursor=pointer]
+                - button "Go forward" [disabled] [ref=e245]:
+                  - img [ref=e246] [cursor=pointer]
+              - generic [ref=e248]:
+                - button "Select element as context" [disabled] [ref=e249]:
+                  - img [ref=e250] [cursor=pointer]
+                - button "切换 DevTools" [disabled] [ref=e252]:
+                  - img [ref=e253] [cursor=pointer]
+              - generic [ref=e255]:
+                - textbox "Enter URL..." [disabled]
+              - generic [ref=e256]:
+                - button "提交 URL" [disabled] [ref=e257]:
+                  - img [ref=e258] [cursor=pointer]
+                - button "复制 URL" [disabled] [ref=e260]:
+                  - img [ref=e261] [cursor=pointer]
+                - button "在新标签页中打开" [disabled] [ref=e263]:
+                  - img [ref=e264] [cursor=pointer]
+                - button "刷新预览" [disabled] [ref=e266]:
+                  - img [ref=e267] [cursor=pointer]
+              - generic [ref=e269]:
+                - button "桌面视图" [disabled] [ref=e270]:
+                  - img [ref=e271] [cursor=pointer]
+                - button "移动视图 (390x844)" [disabled] [ref=e273]:
+                  - img [ref=e274] [cursor=pointer]
+                - button "响应式视图（可调整大小）" [disabled] [ref=e276]:
+                  - img [ref=e277] [cursor=pointer]
+              - button "启动开发服务器" [ref=e280] [cursor=pointer]:
+                - img [ref=e281]
+              - button "切换工作区时保持预览常驻" [disabled] [ref=e284]:
+                - img [ref=e285] [cursor=pointer]
+              - button "More preview settings" [ref=e288] [cursor=pointer]:
+                - img [ref=e289]
+            - generic [ref=e292]:
+              - paragraph [ref=e293]: 没有运行开发服务器
+              - button "修复脚本" [ref=e294] [cursor=pointer]:
+                - text: 修复脚本
+                - img [ref=e295]
+        - generic [ref=e299]:
+          - generic [ref=e301]:
+            - button "Preview" [ref=e303] [cursor=pointer]:
+              - generic [ref=e304]: Preview
+              - img [ref=e306]
+            - generic [ref=e310]:
+              - generic [ref=e311]:
+                - generic [ref=e312]: 日志
+                - button "查看完整日志" [ref=e313] [cursor=pointer]:
+                  - generic [ref=e314]: 查看完整日志
+                  - img [ref=e315]
+              - paragraph [ref=e319]: 没有可用的日志
+          - generic [ref=e321]:
+            - button "Git" [ref=e323] [cursor=pointer]:
+              - generic [ref=e324]: Git
+              - img [ref=e326]
+            - generic [ref=e330]:
+              - generic [ref=e331]:
+                - generic [ref=e332]:
+                  - generic [ref=e333]: vibe-kanban-hua
+                  - button "快速收尾…" [ref=e335] [cursor=pointer]:
+                    - img [ref=e336]
+                - generic [ref=e338]:
+                  - button "origin/main" [ref=e340] [cursor=pointer]:
+                    - img [ref=e341]
+                    - generic [ref=e343]: origin/main
+                    - img [ref=e344]
+                  - generic [ref=e346]:
+                    - img [ref=e347]
+                    - generic [ref=e349]: "1"
+                  - generic [ref=e350]:
+                    - img [ref=e351]
+                    - generic [ref=e353]: "1"
+                  - button "拉取" [ref=e354] [cursor=pointer]:
+                    - img [ref=e355]
+                  - button "更多操作" [ref=e357] [cursor=pointer]:
+                    - img [ref=e358]
+                - generic [ref=e362]:
+                  - button "Open pull request" [ref=e363] [cursor=pointer]
+                  - button [ref=e364] [cursor=pointer]:
+                    - img [ref=e365]
+              - generic [ref=e367]:
+                - generic [ref=e368]:
+                  - img [ref=e369]
+                  - paragraph [ref=e371]: 工作分支
+                - generic [ref=e372]:
+                  - generic [ref=e373]: vibe/b596
+                  - img [ref=e374] [cursor=pointer]
+          - generic [ref=e377]:
+            - button "待办事项 在主面板展开" [ref=e379] [cursor=pointer]:
+              - generic [ref=e380]: 待办事项
+              - generic [ref=e381]:
+                - button "在主面板展开" [ref=e382]:
+                  - img [ref=e383]
+                - img [ref=e385]
+            - generic [ref=e388]:
+              - generic [ref=e389]:
+                - textbox "添加待办…" [ref=e390]
+                - button "添加待办" [ref=e391] [cursor=pointer]:
+                  - img [ref=e392]
+                - button "刷新待办" [ref=e394] [cursor=pointer]:
+                  - img [ref=e395]
+              - tablist [ref=e397]:
+                - tab "待办 0" [selected] [ref=e398] [cursor=pointer]:
+                  - text: 待办
+                  - generic [ref=e399]: "0"
+                - tab "已完成 0" [ref=e400] [cursor=pointer]:
+                  - text: 已完成
+                  - generic [ref=e401]: "0"
+              - tabpanel "待办 0" [ref=e402]:
+                - generic [ref=e403]:
+                  - img [ref=e405]
+                  - generic [ref=e408]: 暂无待办事项，在上方添加一个吧。
+          - generic [ref=e410]:
+            - button "需求池 在主面板展开" [ref=e412] [cursor=pointer]:
+              - generic [ref=e413]: 需求池
+              - generic [ref=e414]:
+                - button "在主面板展开" [ref=e415]:
+                  - img [ref=e416]
+                - img [ref=e418]
+            - generic [ref=e421]:
+              - generic [ref=e422]:
+                - tablist "需求池范围" [ref=e423]:
+                  - tab "本工作区" [selected] [ref=e424] [cursor=pointer]
+                  - tab "整个项目" [ref=e425] [cursor=pointer]
+                - button "排序方式" [ref=e426] [cursor=pointer]:
+                  - img [ref=e427]
+              - button "新增需求" [ref=e430] [cursor=pointer]:
+                - img [ref=e431]
+                - text: 新增需求
+              - generic [ref=e434]: 暂无需求。AI 执行任务时发现的需求会自动归集到这里，也可手动录入。
+          - generic [ref=e436]:
+            - button "工作区文档 在主面板展开" [ref=e438] [cursor=pointer]:
+              - generic [ref=e439]: 工作区文档
+              - generic [ref=e440]:
+                - button "在主面板展开" [ref=e441]:
+                  - img [ref=e442]
+                - img [ref=e444]
+            - generic [ref=e448]:
+              - generic [ref=e449]:
+                - generic [ref=e451]: 已同步
+                - button "排序方式（文件夹固定按名称分组）" [ref=e453] [cursor=pointer]:
+                  - img [ref=e454]
+                - button "刷新文档" [ref=e456] [cursor=pointer]:
+                  - img [ref=e457]
+              - generic [ref=e459]:
+                - generic [ref=e460]:
+                  - generic [ref=e461]:
+                    - generic [ref=e463]: 设计稿
+                    - img [ref=e464]
+                  - button "添加文档（上传本地文件或从工作区关联）" [ref=e467] [cursor=pointer]:
+                    - img [ref=e468]
+                - generic [ref=e470]:
+                  - generic [ref=e471]:
+                    - button "自定义脚本快捷日志入口与执行传参-设计文档.md" [ref=e472] [cursor=pointer]:
+                      - img [ref=e473]
+                      - generic [ref=e475]: 自定义脚本快捷日志入口与执行传参-设计文档.md
+                    - generic [ref=e476]:
+                      - button "加入知识库" [ref=e477] [cursor=pointer]:
+                        - img [ref=e478]
+                      - button "下载文档（含附件）" [ref=e480] [cursor=pointer]:
+                        - img [ref=e481]
+                      - button "删除" [ref=e483] [cursor=pointer]:
+                        - img [ref=e484]
+                  - generic [ref=e486]:
+                    - button "自定义脚本快捷日志入口-方案B草稿.html" [ref=e487] [cursor=pointer]:
+                      - img [ref=e488]
+                      - generic [ref=e493]: 自定义脚本快捷日志入口-方案B草稿.html
+                    - generic [ref=e494]:
+                      - button "加入知识库" [ref=e495] [cursor=pointer]:
+                        - img [ref=e496]
+                      - button "下载文档（含附件）" [ref=e498] [cursor=pointer]:
+                        - img [ref=e499]
+                      - button "删除" [ref=e501] [cursor=pointer]:
+                        - img [ref=e502]
+                  - button "附件与资源（5）" [ref=e505] [cursor=pointer]:
+                    - img [ref=e506]
+                    - text: 附件与资源（5）
+              - generic [ref=e508]:
+                - generic [ref=e509]:
+                  - generic [ref=e510]:
+                    - generic [ref=e512]: 验收文档
+                    - img [ref=e513]
+                  - button "添加文档（上传本地文件或从工作区关联）" [ref=e516] [cursor=pointer]:
+                    - img [ref=e517]
+                - generic [ref=e519]:
+                  - generic [ref=e520]:
+                    - button "自定义脚本快捷日志入口与执行传参-验收报告.md" [ref=e521] [cursor=pointer]:
+                      - img [ref=e522]
+                      - generic [ref=e524]: 自定义脚本快捷日志入口与执行传参-验收报告.md
+                    - generic [ref=e525]:
+                      - button "加入知识库" [ref=e526] [cursor=pointer]:
+                        - img [ref=e527]
+                      - button "下载文档（含附件）" [ref=e529] [cursor=pointer]:
+                        - img [ref=e530]
+                  - button "附件与资源（13）" [ref=e533] [cursor=pointer]:
+                    - img [ref=e534]
+                    - text: 附件与资源（13）
+              - generic [ref=e536]:
+                - generic [ref=e537]:
+                  - generic [ref=e540]: 成果展示
+                  - generic [ref=e541]:
+                    - button "AI 生成成果展示" [ref=e542] [cursor=pointer]:
+                      - img [ref=e543]
+                      - generic [ref=e545]: AI 生成成果展示
+                    - button "添加文档（上传本地文件或从工作区关联）" [ref=e546] [cursor=pointer]:
+                      - img [ref=e547]
+                - generic [ref=e550]: 暂无文档，点击右上角 + 添加
+              - generic [ref=e551]:
+                - img [ref=e552]
+                - generic [ref=e554]: design/.playwright-cli/page-2026-09-28T10-02-11-359Z.yml has a non-whitelisted extension and was skipped（等 12 条同类）
+          - button "Terminal 在 iTerm 中打开" [ref=e558] [cursor=pointer]:
+            - generic [ref=e559]: Terminal
+            - generic [ref=e560]:
+              - button "在 iTerm 中打开" [ref=e561]:
+                - img [ref=e562]
+              - button [ref=e564]:
+                - img [ref=e565]
+              - img [ref=e567]
+          - button "笔记" [ref=e572] [cursor=pointer]:
+            - generic [ref=e573]: 笔记
+            - img [ref=e575]
+  - listbox "Typeahead menu"
+  - generic:
+    - generic:
+      - generic:
+        - generic: Organization
+        - button:
+          - img
+      - button "Workspaces":
+        - img
+        - text: Workspaces
+      - generic:
+        - generic:
+          - img
+          - paragraph: Kanban Boards
+          - paragraph: Sign in to organise your coding agents with kanban boards.
+          - generic:
+            - button "Sign in"
+  - listbox "Typeahead menu"
+  - listbox "Typeahead menu"
+  - listbox "Typeahead menu"
+  - listbox "Typeahead menu"
