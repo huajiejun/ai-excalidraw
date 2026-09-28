@@ -1,0 +1,136 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - button:
+                  - img
+                - generic:
+                  - img
+                  - generic: AI 绘图助手
+                - button:
+                  - img
+                  - text: 新对话
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 画一个前后端架构图：前端、网关、后端
+                - generic:
+                  - generic:
+                    - generic: 好的。
+              - generic:
+                - generic:
+                  - textbox:
+                    - /placeholder: 描述你想要绘制的图形...
+                  - button [disabled]:
+                    - img
+        - generic:
+          - generic:
+            - button:
+              - img
+            - button:
+              - img
+            - button:
+              - img
+              - text: 清空画布
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button [ref=e441] [cursor=pointer]:
+                      - img [ref=e442]
+                    - region:
+                      - generic [ref=e448]:
+                        - generic:
+                          - generic: 要移动画布，请按住鼠标滚轮或空格键同时拖拽鼠标，或使用抓手工具。
+                        - heading [level=2] [ref=e669]: 形状
+                        - generic [ref=e450]:
+                          - generic [ref=e670] [cursor=pointer]:
+                            - checkbox
+                            - img [ref=e453]
+                          - generic [ref=e671] [cursor=pointer]:
+                            - radio
+                            - img [ref=e462]
+                          - generic [ref=e672] [cursor=pointer]:
+                            - radio [checked]
+                            - generic [ref=e470]:
+                              - img [ref=e471]
+                              - generic [ref=e476]: "1"
+                          - generic [ref=e673] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e478]:
+                              - img [ref=e479]
+                              - generic [ref=e483]: "2"
+                          - generic [ref=e674] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e485]:
+                              - img [ref=e486]
+                              - generic [ref=e490]: "3"
+                          - generic [ref=e675] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e492]:
+                              - img [ref=e493]
+                              - generic [ref=e497]: "4"
+                          - generic [ref=e676] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e499]:
+                              - img [ref=e500]
+                              - generic [ref=e505]: "5"
+                          - generic [ref=e677] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e507]:
+                              - img [ref=e508]
+                              - generic [ref=e509]: "6"
+                          - generic [ref=e678] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e511]:
+                              - img [ref=e512]
+                              - generic [ref=e516]: "7"
+                          - generic [ref=e679] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e518]:
+                              - img [ref=e519]
+                              - generic [ref=e524]: "8"
+                          - generic [ref=e680] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e526]:
+                              - img [ref=e527]
+                              - generic [ref=e532]: "9"
+                          - generic [ref=e681] [cursor=pointer]:
+                            - radio
+                            - generic [ref=e534]:
+                              - img [ref=e535]
+                              - generic [ref=e540]: "0"
+                          - button [ref=e682] [cursor=pointer]:
+                            - img [ref=e543]
+                    - generic [ref=e683]:
+                      - checkbox
+                      - img [ref=e552] [cursor=pointer]
+                - contentinfo:
+                  - region [ref=e684]:
+                    - heading [level=2] [ref=e685]: 画布动作
+                    - generic [ref=e561]:
+                      - button [ref=e686] [cursor=pointer]:
+                        - img [ref=e564]
+                      - button [ref=e687] [cursor=pointer]: 100%
+                      - button [ref=e688] [cursor=pointer]:
+                        - img [ref=e569]
+                    - generic [ref=e571]:
+                      - button [disabled] [ref=e689]:
+                        - img [ref=e576]
+                      - button [disabled] [ref=e690]:
+                        - img [ref=e582]
+                  - button [ref=e691] [cursor=pointer]:
+                    - img [ref=e586]
+              - generic:
+                - img
+              - generic: 绘制 Canvas
+  - dialog "确定要清空画布吗？" [ref=e693]:
+    - heading "确定要清空画布吗？" [level=2] [ref=e694]
+    - generic [ref=e695]:
+      - button "取消" [active] [ref=e696]
+      - button "确认" [ref=e697]
